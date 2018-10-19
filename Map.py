@@ -1,7 +1,7 @@
 #places
 
 place_building_one = {
-    "name": "the bombed building",
+    "name": "front of the bombed building",
     
     "description":
     """You have succesfully exited the building where you were imprisoned and now you
@@ -157,7 +157,7 @@ go north back to the city centre or you can continue south and go in front of th
 }
 
 place_final_building = {
-    "name": "the final building",
+    "name": "front of the final building",
 
     "description":
     """You are now in front of the final building. It is a high, modern building in which your
@@ -167,13 +167,37 @@ your target, however you can go back to the church if you don't think the target
 after the evaluation you feel like you need to pick up more items and want to go back and check if you
 have missed something useful.""",
 
-    "exits": {"north": "Church"},
+    "exits": {"north": "Church", "building": "Building2Inside"},
 
     "items": []
-##Use enter building
 }
 
-places = {
+##NEW ROOMS
+
+final_building = {
+
+}
+#add the exits and other ditionaires here
+first_building = {
+    
+}
+
+## add other rooms like floors with exits to other rooms, and add more rooms like 
+## room_reception, room_office etc. on the same way as the "rooms" above. treat 
+## everything as a room, we will just have different ways to enter depending on
+## whether it is a a room, building or a place.
+## for example, for rooms and buildings we will have enter building and exit building,
+## , for floors go up, go down and for places go west, go east etc..
+## I have already updated the commands so just add the dictionaries with exits on 
+## the same way as the places.
+
+##Also add the new "rooms"(floors, buildings, rooms) within the rooms section
+
+## We can separate them later and create new execute functions to make them not accept
+## enter west or go building or enter floor
+
+
+rooms = {
     "Building1": place_building_one,
     "Abandoned": place_abandoned_building,
     "Garden": place_garden,
@@ -184,5 +208,8 @@ places = {
     "Centre": place_city_centre,
     "Parking": place_parking,
     "Church": place_church,
-    "Building2": place_final_building
+    "Building2": place_final_building,
+    ## NEW ROOMS
+    "Building2Inside": final_building,
+    "Building1Inside": first_building
 }
