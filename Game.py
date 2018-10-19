@@ -118,23 +118,6 @@ def execute_drop(item_id):
     else:
         print("You cannot drop that.")
 
-        ## NEW FUNCTIONS
-    
-def execute_exit(building): 
-	global current_room
-    if (is_valid_exit(current_room["exits"], direction) == True):
-        new_room = move(current_room["exits"], direction)
-        current_room = new_room
-    else:
-        print("You cannot go there.")
-
-def execute_enter(building):
-	global current_room
-    if (is_valid_exit(current_room["exits"], direction) == True):
-        new_room = move(current_room["exits"], direction)
-        current_room = new_room
-    else:
-        print("You cannot go there.")
 
 def execute_command(command):
     #This function will check if user types in go, take or drop and will call appropriate execute functions.
@@ -158,23 +141,6 @@ def execute_command(command):
             execute_drop(command[1])
         else:
             print("Drop what?")
-
-    ##### New COMMANDS
-
-    elif command[0] == "enter":
-    	if len(command) > 1:
-    		execute_enter(command[1])
-    	else:
-    		print("Enter what?")
-
-    elif command[0] == "exit":
-    	if len(command) > 1:
-    		execute_exit(command[1])
-    	else:
-    		print("Exit what?")
-
-    else:
-        print("This makes no sense.")
 
 
 def menu(exits, room_items, inv_items):
