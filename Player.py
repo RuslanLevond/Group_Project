@@ -126,3 +126,5 @@ for attribute in attribute_dictionary:
                break
             update_attributes(attribute)
             counter = counter + 1
+            
+updated_stamina = stats_dictionary["Stamina"]

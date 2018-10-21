@@ -1,7 +1,7 @@
-from map import rooms
-from player import *
+from Map import rooms
+from Player import *
 from items import *
-from gameparser import *
+from Gameparser import *
 
 
 
@@ -118,11 +118,50 @@ def execute_drop(item_id):
     else:
         print("You cannot drop that.")
 
+def execute_stats(attribute):
+    #This function will show current player's stats, all of the attributes they have picked. The attribute parameter is going to be attribute_dictionary.
+    print("Your current stats are:")
+    print("Strength - " + str(attribute["Strength"]))
+    print("Intelligence - " + str(attribute["Intelligence"]))
+    print("Agility - " + str(attribute["Agility"]))
+
+def execute_buy():
+    #This function will be used in the train station to buy a ticket for the train. The player can go to the train station two only with the ticket.
+    print("You bought a ticket for the train. Now you can go on the train.")
+    inventory.append(items["id"]["ticket"])
+
+def execute_pin(user_pin)
+    #This function will check if the user has entered a valid pin number for the elevator. If not, then the enter_pin function will be executed where the player will be asked to enter a pin number again. Otherwise, the player can use the elevator.
+    #Here are two new variables which would need to be declared. elevator_pin variable will be used as a reference to the user's pin, it will check if they have entered a correct pin. Also, use_elevator variable which will be used to allow the users to use the elevator or not.
+    print("You are entering a pin number to use the elevator...")
+    if(user_pin == elevator_pin):
+        print("You have entered correct pin number.")
+        use_elevator = True
+    else:
+        print("You have entered a wrong pin number, please enter a correct pin number")
+        enter_pin()
+        
+def enter_pin():
+    #This function will execute only if the current room is elevator, it will ask the player to enter a pin number. It will return a pin number the user has entered.
+    #The code to check if the current room is elevator. if(current_room == rooms["room_elevator"])
+    #This function will need to be checked as an input for the validation.
+    pin = input("Please enter a pin number to use the elevator: ")
+    return pin
+
+def execute_rest(max_rest):
+    #This function will regain player's stamina by resting. The player will not be able to rest if there is an enemy in the room. It will put player's stamina back to the default which is effected by the attributes using updated_stamina variable as max_rest parameter which is declared in the Player.py
+    if (current_room["enemy"] == "")
+        print("You are resting...")
+        stats_dictionary["Stamina"] = max_rest
+        print("You have rested, now you stamina is back to usual.")
+        print("Stamina : " + str(stats_dictionary["Stamina"]))
+    else:
+        print("You cannot rest here, there is an enemy nearby.")
 
 def execute_command(command):
     #This function will check if user types in go, take or drop and will call appropriate execute functions.
-    if 0 == len(command):
-        return
+    #Not sure if this line was necessary as we will be using 0 length commands. if 0 == len(command):
+        #return
 
     if command[0] == "go":
         if len(command) > 1:
@@ -142,6 +181,20 @@ def execute_command(command):
         else:
             print("Drop what?")
 
+    elif command[0] == "stats":
+        execute_stats(attribute_dictionary)
+        
+    elif command[0] == "pin":
+        if len(command) > 1:
+            execute_pin(command[1])
+        else:
+            print("Please enter a pin number!")
+
+    elif command[0] == "buy":
+        execute_buy()
+
+    elif command[0] == "rest":
+        execute_rest()
 
 def menu(exits, room_items, inv_items):
     #This function will display the main menu, read player's input, normalise it and then return normalised user's input.
