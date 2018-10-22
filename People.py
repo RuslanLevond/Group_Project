@@ -9,7 +9,7 @@ people_child = {
     "knowledge": "Sorry, I haven't seen anything."
 }
 
- people_homeless = {
+people_homeless = {
 
     "id": "homeless",
 

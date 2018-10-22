@@ -65,7 +65,7 @@ items_strength_book = {
     "damage" : 0,
     }
 items_intelligence_book = {
-    "id" : "strength",
+    "id" : "intelligence",
 
     "description" : "A book that looks like it will give you some valuable information on your aim.",
 
@@ -185,22 +185,34 @@ items_serum_207 = {
 
     "damage" : 0
     }
-items = {
-    "security_baton" : items_security_baton,
-    "pistol" : items_pistol,
-    "stun_gun" : items_stun_gun,
-    "baseball_bat" : items_baseball_bat,
-    "garrotte_wire" : items_garrotte_wire,
-    "strength_book" : items_strength_book,
-    "intelligence_book" : items_intelligence_book,
-    "agility_book" : items_agility_book,
-    "b1_keycard" : items_b1_keycard,
-    "train_ticket" : items_train_ticket,
-    "b2_keycard" : items_b2_keycard,
-    "elevator_code" : items_elevator_code,
-    "ammunition" : items_ammunition,
-    "rope" : items_rope,
-    "visitors_pass" : items_visitors_pass,
-    "hair_pin" : items_hair_pin,
-    "Serum207" : items_serum_207
-    }
+items_first_aid_box = {
+    "id" : "aid",
+
+    "description" : "This is used to regenerete health",
+
+    "name" : "First Aid",
+
+    "mass" : 0,
+
+    "damage" : 0
+}
+# items = {
+#     "security_baton" : items_security_baton,
+#     "pistol" : items_pistol,
+#     "stun_gun" : items_stun_gun,
+#     "baseball_bat" : items_baseball_bat,
+#     "garrotte_wire" : items_garrotte_wire,
+#     "strength_book" : items_strength_book,
+#     "intelligence_book" : items_intelligence_book,
+#     "agility_book" : items_agility_book,
+#     "b1_keycard" : items_b1_keycard,
+#     "train_ticket" : items_train_ticket,
+#     "b2_keycard" : items_b2_keycard,
+#     "elevator_code" : items_elevator_code,
+#     "ammunition" : items_ammunition,
+#     "rope" : items_rope,
+#     "visitors_pass" : items_visitors_pass,
+#     "hair_pin" : items_hair_pin,
+#     "Serum207" : items_serum_207,
+#     "first_aid": item_first_aid
+#     }

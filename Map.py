@@ -1,14 +1,14 @@
 #places
 
 from Items import *
-from Combat import *
 from People import *
-
+from Combat import *
+from Enemies import *
 
 #Basement(rooms)
 cell_room = {
     
-    "name": "Agent 21s cell",
+    "name": "Agent 21 cell",
     
     "description": 
     """
@@ -21,7 +21,9 @@ cell_room = {
 
     "items":[],
 
-    "enenmies":[]
+    "enenmies":[],
+
+    "people": []
 }
 
 security_room = {
@@ -39,7 +41,9 @@ security_room = {
 
     "items":[items_security_baton],
 
-    "enenmies":[]
+    "enenmies":[],
+
+    "people": []
 
 }
 
@@ -58,7 +62,9 @@ staircase_1 = {
 
     "items":[],
 
-    "enenmies":[]
+    "enenmies":[],
+
+    "people": []
 }
 
 
@@ -78,7 +84,9 @@ staircase_2 = {
 
     "items":[],
 
-    "enenmies": []
+    "enenmies": [],
+
+    "people": []
 }
 
 reception_room = {
@@ -97,7 +105,9 @@ reception_room = {
 
     "items": [],
 
-    "enenmies": []
+    "enenmies": [],
+
+    "people": []
 }
 
 #First floor(rooms)
@@ -116,7 +126,9 @@ staircase_3 = {
 
     "items":[],
 
-    "enenmies": []
+    "enenmies": [],
+
+    "people": []
 }
 
 lobby_room = {
@@ -134,7 +146,9 @@ lobby_room = {
 
     "items":[],
 
-    "enenmies": []
+    "enenmies": [],
+
+    "people": []
 }
 
 control_room = {
@@ -152,7 +166,9 @@ control_room = {
 
     "items":[],
 
-    "enenmies": []
+    "enenmies": [],
+
+    "people": []
 }
 
 
@@ -173,7 +189,9 @@ roof_floor = {
 
     "items":[items_rope],
 
-    "enenmies": []
+    "enenmies": [],
+
+    "people": []
 
 }
 
@@ -413,11 +431,13 @@ room_reception = {
     "description":
     """ """,
 
-    "exits": {"east": "Stairs 0", "west": "Meeting Room", "south": "Toilet", "north": "Building2"}
+    "exits": {"east": "Stairs 0", "west": "Meeting Room", "south": "Toilet", "north": "Building2"},
 
-    "items": []
+    "items": [],
 
-    "enemies" : [enemy_receptionist]
+    "enemies" : [enemy_receptionist],
+
+    "people": []
 }
 
 room_meeting = {
@@ -426,11 +446,13 @@ room_meeting = {
     "description":
     """ """,
 
-    "exits": {"east": "Reception"}
+    "exits": {"east": "Reception"},
 
-    "items": [items_visitors_pass]
+    "items": [items_visitors_pass],
 
-    "enemies" : []
+    "enemies" : [],
+
+    "people": []
 }
 
 room_toilet = {
@@ -439,11 +461,13 @@ room_toilet = {
     "description":
     """ """,
 
-    "exits": {"north": "Reception"}
+    "exits": {"north": "Reception"},
 
-    "items": [items_ammunition, items_pistol, items_intelligence_book] # The ammunition and a pistol would be dropped when the player kills the enemy.
+    "items": [items_ammunition, items_pistol, items_intelligence_book], # The ammunition and a pistol would be dropped when the player kills the enemy.
  
-    "enemies" : [enemy_guard_toilet]
+    "enemies" : [enemy_guard_toilet],
+
+    "people": []
 }
 
 room_stairs_0 = {
@@ -452,11 +476,13 @@ room_stairs_0 = {
     "description":
     """ """,
 
-    "exits": {"up": "Corridor", "west": "Reception"}
+    "exits": {"up": "Corridor", "west": "Reception"},
 
-    "items": [items_agility_book]
+    "items": [items_agility_book],
 
-    "enemies" : [] 
+    "enemies" : [] ,
+
+    "people": []
 }
 
 room_corridor = {
@@ -465,11 +491,13 @@ room_corridor = {
     "description":
     """ """,
 
-    "exits": {"south": "Room 2", "east": "Stairs 1", "west": "Room 1", "down": "Stairs 0"}
+    "exits": {"south": "Room 2", "east": "Stairs 1", "west": "Room 1", "down": "Stairs 0"},
 
-    "items": [items_b2_keycard] # Guard drops this item
+    "items": [items_b2_keycard], # Guard drops this item
 
-    "enemies" : [enemy_guard_floor1]
+    "enemies" : [enemy_guard_floor1],
+
+    "people": []
 }
 
 room_room1 = {
@@ -478,11 +506,13 @@ room_room1 = {
     "description":
     """ """,
 
-    "exits": {"east": "Corridor"}
+    "exits": {"east": "Corridor"},
 
-    "items": [items_garrotte_wire, items_pistol, items_ammunition]
+    "items": [items_garrotte_wire, items_pistol, items_ammunition],
 
-    "enemies" : []
+    "enemies" : [],
+
+    "people": []
 }
 
 room_room2 = {
@@ -491,11 +521,13 @@ room_room2 = {
     "description":
     """ """,
 
-    "exits": {"north": "Corridor"}
+    "exits": {"north": "Corridor"},
 
-    "items": [items_first_aid_box, items_intelligence_book]
+    "items": [items_first_aid_box, items_intelligence_book],
 
-    "enemies" : []
+    "enemies" : [],
+
+    "people": []
 }
 
 room_stairs_1 = {
@@ -504,11 +536,13 @@ room_stairs_1 = {
     "description":
     """ """,
 
-    "exits": {"up": "Main Room", "east": "Corridor"}
+    "exits": {"up": "Main Room", "east": "Corridor"},
 
-    "items": []
+    "items": [],
 
-    "enemies" : []
+    "enemies" : [],
+
+    "people": []
 }
 
 room_main = {
@@ -517,11 +551,13 @@ room_main = {
     "description":
     """ """,
 
-    "exits": {"down": "Stairs 1", "south": "Conference Room", "east": "Stairs 2", "west": "Elevator", "north": "Security Room"}
+    "exits": {"down": "Stairs 1", "south": "Conference Room", "east": "Stairs 2", "west": "Elevator", "north": "Security Room"},
 
-    "items": []
+    "items": [],
  
-    "enemies" : []
+    "enemies" : [],
+
+    "people": []
 }
 
 room_security = {
@@ -530,11 +566,13 @@ room_security = {
     "description":
     """ """,
 
-    "exits": {"east": "Main Room"}
+    "exits": {"east": "Main Room"},
 
-    "items": [items_pistol, items_ammunition] # They will drop if the kill the enemy.
+    "items": [items_pistol, items_ammunition], # They will drop if the kill the enemy.
 
-    "enemies" : [enemy_guard_security]
+    "enemies" : [enemy_guard_security],
+
+    "people": []
 }
 
 room_conference = {
@@ -543,11 +581,13 @@ room_conference = {
     "description":
     """ """,
 
-    "exits": {"north": "Main Room"}
+    "exits": {"north": "Main Room"},
 
-    "items": [items_elevator_code]
+    "items": [items_elevator_code],
 
-    "enemies" : []
+    "enemies" : [],
+
+    "people": []
 }
 
 room_elevator = {
@@ -556,24 +596,28 @@ room_elevator = {
     "description":
     """ """,
 
-    "exits": {"east": "Main Room"} # Players will use pin_execute function here which will teleport the player into main office.
+    "exits": {"east": "Main Room"}, # Players will use pin_execute function here which will teleport the player into main office.
 
-    "items": [items_strength_book]
+    "items": [items_strength_book],
 
-    "enemies" : []
+    "enemies" : [],
+
+    "people": []
 }
 
 room_main_office = {
-    "name": "Main Office"
+    "name": "Main Office",
 
     "description":
     """ """,
 
-    "exits": {}
+    "exits": {},
 
-    "items": [items_serum_207] # Boss will drop this item.
+    "items": [items_serum_207], # Boss will drop this item.
 
-    "enemies" : [enemy_BIGBOSS]
+    "enemies" : [enemy_BIGBOSS],
+
+    "people": []
 }
 
 

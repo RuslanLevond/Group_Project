@@ -36,48 +36,4 @@ def attacks(enemy):
     else:
         print("you have killed the", enemy["name"],"anything the", enemy["name"], "had would have dropped on the floor")
 ## this is what will actually be in this file!!
-enemy_guard_outside = {
-    "name" : "guard",
-    "health" : 3,
-    "base_health" : 3,
-    "damage" : 1
-    }
-enemy_receptionist = {
-    "name" : "receptionist",
-    "health" : 2,
-    "base_health" : 2,
-    "damage" : 1
-    }
-enemy_guard_toilet = {
-    "name" : "guard",
-    "health" : 4,
-    "base_health" : 4,
-    "damage" : 1
-    }
-enemy_guard_floor1 = {
-    "name" : "guard",
-    "health" : 3,
-    "base_health" : 3,
-    "damage" : 2
-    }
-enemy_guard_security = {
-    "name" : "guard",
-    "health" : 5,
-    "base_health" : 5,
-    "damage" : 1
-    }
-enemy_BIGBOSS = {
-    "name" : "big boss",
-    "health" : 8,
-    "base_health" : 8,
-    "damage" : 2
-    }
-enemies = {
-    "guard_outside" : enemy_guard_outside,
-    "receptionist" : enemy_receptionist,
-    "toilet_guard" : enemy_guard_toilet,
-    "floor1_guard" : enemy_guard_floor1,
-    "Security_guard" : enemy_guard_security,
-    "big_boss" : enemy_BIGBOSS
-    }
-## to call the function will be attacks(enemies[guard_outside])
+

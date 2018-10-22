@@ -1,11 +1,9 @@
-from Map import rooms
+from Map import *
 from Player import *
-from items import *
+from Items import *
 from Gameparser import *
 from People import *
-
-
-
+from Combat import *
 
 def list_of_items(items):
     #This function puts items into the list.
@@ -38,8 +36,7 @@ def print_room_people(room):
         pass
     else:
         print ("There is " + str(h) + " here.")
-        print ("Descritpion: " + )
-
+        
 def print_inventory_items(items):
     #This function takes a list of player's inventory items and prints them.
     list_items = list_of_items(items)
@@ -171,7 +168,7 @@ def execute_buy():
     print("You bought a ticket for the train. Now you can go on the train.")
     inventory.append(items["id"]["ticket"])
 
-def execute_pin(user_pin)
+def execute_pin(user_pin):
     #This function will check if the user has entered a valid pin number for the elevator. If not, then the enter_pin function will be executed where the player will be asked to enter a pin number again. Otherwise, the player can use the elevator.
     #Here are two new variables which would need to be declared. elevator_pin variable will be used as a reference to the user's pin, it will check if they have entered a correct pin. Also, use_elevator variable which will be used to allow the users to use the elevator or not.
     print("You are entering a pin number to use the elevator...")
@@ -191,7 +188,7 @@ def enter_pin():
 
 def execute_rest(max_rest):
     #This function will regain player's stamina by resting. The player will not be able to rest if there is an enemy in the room. It will put player's stamina back to the default which is effected by the attributes using updated_stamina variable as max_rest parameter which is declared in the Player.py
-    if (current_room["enemy"] == "")
+    if (current_room["enemy"] == ""):
         print("You are resting...")
         stats_dictionary["Stamina"] = max_rest
         print("You have rested, now you stamina is back to usual.")
@@ -265,17 +262,18 @@ def move(exits, direction):
     return rooms[exits[direction]]
 
 def main():
+    current_room = rooms["Cell1"]
     # Main game loop
     while True:
-        if(player_win() == True):
-            break
+        #if(player_win() == True):
+            #break
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_inventory_items(inventory)
         print_room_people(current_room)
 
         # Show the menu with possible actions and ask the player
-        command = menu(current_room["exits"], current_room["items"], inventory)
+        command = menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
 
         # Execute the player's command
         execute_command(command)

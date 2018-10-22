@@ -1,4 +1,9 @@
 #The attribute dictionary will store all of the skill points the player has chosen.
+from Map import *
+from Items import *
+from Gameparser import *
+
+
 attribute_dictionary = {
     "Strength" : 0,
     "Intelligence" : 0,
@@ -10,6 +15,7 @@ stats_dictionary = {
     "Accuracy" : 0.25,
     "Stamina" : 5
     }
+inventory = []
 #This function is a creation menu, from here the player would be able to use their first 3 skill points on increasing their specific attributes.
 def player_attributes():
     print("Here is the character creation menu, from here you can choose character's starter attributes.\nThrough out the game, you can find skill books which would increase your character's attributes.\nThey are strength, intelligence and agility.\n")
