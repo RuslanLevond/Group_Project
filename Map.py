@@ -1,5 +1,190 @@
 #places
 
+from Items import *
+from Combat import *
+from People import *
+
+
+#Basement(rooms)
+cell_room = {
+    
+    "name": "Agent 21s cell",
+    
+    "description": 
+    """
+    You have been in this cell for weeks. Behind the cell doors
+    you will find the security room. The cell doors are facing north.""",
+
+    "exits": {"north":"Securityroom1"},
+
+    "furniture": {"bed":[items_hair_pin]},
+
+    "items":[],
+
+    "enenmies":[]
+}
+
+security_room = {
+    
+    "name": "Security room",
+
+    "description":
+    """ 
+    The staircase is to the west of the security room. But, you better
+    check this room carefully, there could be useful items here.""",
+
+    "exits": {"south": "Cell1", "west": "Stairsone1"},
+
+    "furniture": {"desk": [items_b1_keycard]},
+
+    "items":[items_security_baton],
+
+    "enenmies":[]
+
+}
+
+staircase_1 = {
+    
+    "name": "Basement staircase",
+
+    "description":
+    """ 
+    This seems to be the only way to get to the floor above. 
+    Go up to enter the ground floor. """,
+
+    "exits": {"up":"Stairstwo1", "east": "Securityroom1"},
+
+    "furniture":[],
+
+    "items":[],
+
+    "enenmies":[]
+}
+
+
+#Ground floor(rooms)
+staircase_2 = {
+    
+    "name": "Ground floor staircase",
+
+    "description":
+    """ 
+    Going down will bring you to the basement floor.
+    going up will bring you to the first floor. """,
+
+    "exits": {"up":"Stairsthree1", "down": "Stairsone1" , "east": "Reception1"},
+
+    "furniture":[],
+
+    "items":[],
+
+    "enenmies": []
+}
+
+reception_room = {
+    
+    "name": "Reception1",
+
+    "description":
+    """ 
+    This is the reception room. The entrance to the building is north.
+    However, you will need promision from the control room. To get back to the 
+    staircase go west.""",
+
+    "exits": {"north": "Building1", "west":"Stairstwo1"},
+
+    "furniture":{"table":[items_strength_book]}, 
+
+    "items": [],
+
+    "enenmies": []
+}
+
+#First floor(rooms)
+staircase_3 = {
+    
+    "name": "First floor stairs",
+
+    "description":
+    """
+    Going down will bring you back to the ground floor.
+    Going up will bring you to the roof.""",
+
+    "exits": {"up": "Roof1", "down": "Stairstwo1", "east": "Lobby1"},
+
+    "furniture":[],
+
+    "items":[],
+
+    "enenmies": []
+}
+
+lobby_room = {
+    
+    "name": "The lobby",
+
+    "description":
+    """ 
+    You are at the lobby on floor one. To enter the control room go south.
+    To get back to the staircase go west.""",
+
+    "exits": {"west":"Stairsthree1", "south": "Control1"},
+
+    "furniture": {"sofa":[]},
+
+    "items":[],
+
+    "enenmies": []
+}
+
+control_room = {
+    
+    "name": "Control1 room",
+
+    "description":
+    """
+    This is the control room. You are able to unlock the main doors from here.
+    To go back to the lobby go north.""",
+
+    "exits": {"north": "Lobby1"},
+
+    "furniture":[],
+
+    "items":[],
+
+    "enenmies": []
+}
+
+
+
+#Roof1
+roof_floor = {
+    
+    "name":"Building one Roof1",
+
+    "description":
+    """ 
+    You are on the roof. Its too high to jump down. 
+    To go back to the first floor go down.""",
+
+    "exits": {"down": "Stairsthree1", "north": "Building1"},
+
+    "furniture":[],
+
+    "items":[items_rope],
+
+    "enenmies": []
+
+}
+
+
+
+### STREET MAP
+
+
+
+
+
 place_building_one = {
     "name": "front of the bombed building",
     
@@ -11,7 +196,7 @@ Now you need to go after your targets. You have two safe choices from the place 
 You can either go east to the garden or go west to an abandoned building
 to avoid dealing with police, get some rest and pick up items.""",
     
-    "exits": {"inside": "Reception", "east": "Garden", "west": "Abandoned"},
+    "exits": {"inside": "Reception1", "east": "Garden", "west": "Abandoned"},
 
     "items": [],
 
@@ -35,12 +220,12 @@ You can either pick up the items or leave the building from the south side.""",
 
     "exits": {"south": "Pharmacy"},
 
-    "items":[],
+    "items":[items_intelligence_book],
 
     "enemies": [],
 
     "people": [people_junkie]
-##knife, int skillbook
+##int skillbook
 }
 
 place_garden = {
@@ -54,7 +239,7 @@ skillbook on the floor. You can pick it up, or go south to the train station."""
 
     "exits": {"south": "Station1"},
 
-    "items": [],
+    "items": [items_strength_book],
 
     "enemies": [],
 
@@ -73,7 +258,7 @@ leads to the toys store across the road.""",
     
     "exits": {"east": "Toys"},
 
-    "items": [],
+    "items": [items_ammunition],
 
     "enemies": [],
 
@@ -93,7 +278,7 @@ improsened earlier""",
 
     "exits": {"north": "Building1"},
 
-    "items": [],
+    "items": [items_strength_book],
 
     "enemies": [],
 
@@ -170,7 +355,7 @@ the parking entrance. You can pick it up, or go back to the train station from t
 
     "exits": {"west": "Station2"},
 
-    "items": [],
+    "items": [items_agility_book, items_pistol],
 
     "enemies": [],
 
@@ -188,7 +373,7 @@ go north back to the city centre or you can continue south and go in front of th
 
     "exits": {"north": "Centre", "south": "Building2"},
 
-    "items": [],
+    "items": [items_intelligence_book],
 
     "enemies": [],
 
@@ -216,9 +401,204 @@ have missed something useful.""",
     "people": []
 }
 
+#BUILDING FINAL
+
+#from Items import *
+#from enemies import *
+
+
+room_reception = {
+    "name": "Reception",
+
+    "description":
+    """ """,
+
+    "exits": {"east": "Stairs 0", "west": "Meeting Room", "south": "Toilet", "north": "Building2"}
+
+    "items": []
+
+    "enemies" : [enemy_receptionist]
+}
+
+room_meeting = {
+    "name": "Meeting Room",
+
+    "description":
+    """ """,
+
+    "exits": {"east": "Reception"}
+
+    "items": [items_visitors_pass]
+
+    "enemies" : []
+}
+
+room_toilet = {
+    "name": "Toilet",
+
+    "description":
+    """ """,
+
+    "exits": {"north": "Reception"}
+
+    "items": [items_ammunition, items_pistol, items_intelligence_book] # The ammunition and a pistol would be dropped when the player kills the enemy.
+ 
+    "enemies" : [enemy_guard_toilet]
+}
+
+room_stairs_0 = {
+    "name": "Stairs 0",
+
+    "description":
+    """ """,
+
+    "exits": {"up": "Corridor", "west": "Reception"}
+
+    "items": [items_agility_book]
+
+    "enemies" : [] 
+}
+
+room_corridor = {
+    "name": "Corridor",
+
+    "description":
+    """ """,
+
+    "exits": {"south": "Room 2", "east": "Stairs 1", "west": "Room 1", "down": "Stairs 0"}
+
+    "items": [items_b2_keycard] # Guard drops this item
+
+    "enemies" : [enemy_guard_floor1]
+}
+
+room_room1 = {
+    "name": "Room 1",
+
+    "description":
+    """ """,
+
+    "exits": {"east": "Corridor"}
+
+    "items": [items_garrotte_wire, items_pistol, items_ammunition]
+
+    "enemies" : []
+}
+
+room_room2 = {
+    "name": "Room 2",
+
+    "description":
+    """ """,
+
+    "exits": {"north": "Corridor"}
+
+    "items": [items_first_aid_box, items_intelligence_book]
+
+    "enemies" : []
+}
+
+room_stairs_1 = {
+    "name": "Stairs 1",
+
+    "description":
+    """ """,
+
+    "exits": {"up": "Main Room", "east": "Corridor"}
+
+    "items": []
+
+    "enemies" : []
+}
+
+room_main = {
+    "name": "Main Room",
+
+    "description":
+    """ """,
+
+    "exits": {"down": "Stairs 1", "south": "Conference Room", "east": "Stairs 2", "west": "Elevator", "north": "Security Room"}
+
+    "items": []
+ 
+    "enemies" : []
+}
+
+room_security = {
+    "name": "Security Room",
+
+    "description":
+    """ """,
+
+    "exits": {"east": "Main Room"}
+
+    "items": [items_pistol, items_ammunition] # They will drop if the kill the enemy.
+
+    "enemies" : [enemy_guard_security]
+}
+
+room_conference = {
+    "name": "Conference Room",
+
+    "description":
+    """ """,
+
+    "exits": {"north": "Main Room"}
+
+    "items": [items_elevator_code]
+
+    "enemies" : []
+}
+
+room_elevator = {
+    "name": "Elevator",
+
+    "description":
+    """ """,
+
+    "exits": {"east": "Main Room"} # Players will use pin_execute function here which will teleport the player into main office.
+
+    "items": [items_strength_book]
+
+    "enemies" : []
+}
+
+room_main_office = {
+    "name": "Main Office"
+
+    "description":
+    """ """,
+
+    "exits": {}
+
+    "items": [items_serum_207] # Boss will drop this item.
+
+    "enemies" : [enemy_BIGBOSS]
+}
+
+
+####END
 
 
 rooms = {
+#basement
+    "Cell1": cell_room,
+    "Securityroom1": security_room,
+    "Stairsone1": staircase_1,
+
+    #ground floor
+    "Stairstwo1": staircase_2,
+    "Reception1": reception_room,
+
+    #first floor
+    "Stairsthree1": staircase_3,
+    "Lobby1": lobby_room,
+    "Control1": control_room,
+
+    #roof
+    "Roof1": roof_floor,
+
+## STREET MAP
     "Building1": place_building_one,
     "Abandoned": place_abandoned_building,
     "Garden": place_garden,
@@ -230,4 +610,22 @@ rooms = {
     "Parking": place_parking,
     "Church": place_church,
     "Building2": place_final_building,
+
+##BUILDING 2
+    "Reception": room_reception,
+    "Meeting Room": room_meeting,
+    "Toilet": room_toilet,
+    "Stairs 0": room_stairs_0,
+    "Corridor": room_corridor,
+    "Room 1": room_room1,
+    "Room 2": room_room2,
+    "Stairs 1": room_stairs_1,
+    "Main Room": room_main,
+    "Security Room": room_security,
+    "Conference Room": room_conference,
+    "Elevator": room_elevator,
+    "Main Office": room_main_office
 }
+
+
+## ADD DESCRIPTIONS, SEARCH
