@@ -2,6 +2,7 @@ from Map import rooms
 from Player import *
 from items import *
 from Gameparser import *
+from People import *
 
 
 
