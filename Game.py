@@ -5,6 +5,7 @@ from Gameparser import *
 
 
 
+
 def list_of_items(items):
     #This function puts items into the list.
     string = ''
@@ -13,6 +14,14 @@ def list_of_items(items):
         new_list.append(item["name"])
         string = ", ".join(new_list)
     return string
+
+def list_of_people(people):
+
+    if not people:
+        return str("")
+    else:
+        return ', '.join(str(k["name"] + " (" + str(k["description"]) + ")") for k in list(people))
+
 def print_room_items(room):
     #This function takes a room as an input and prints all of the items.
     list_items = list_of_items(room["items"])
@@ -20,6 +29,15 @@ def print_room_items(room):
         pass
     else:
         print("There is " + list_items + " here.\n")
+
+def print_room_people(room):
+
+    h = list_of_people(room["people"])
+    if str(h) == "":
+        pass
+    else:
+        print ("There is " + str(h) + " here.")
+        print ("Descritpion: " + )
 
 def print_inventory_items(items):
     #This function takes a list of player's inventory items and prints them.
@@ -47,7 +65,7 @@ def print_exit(direction, leads_to):
     #This function prints out where the player can go, the direction and the exit it leads to.
     print("GO " + direction.upper() + " to " + leads_to + ".")
 
-def print_menu(exits, room_items, inv_items):
+def print_menu(exits, room_items, inv_items, room_people):
     #This function calls print_exit and exit_leads_to functions which outputs player navigation options. As well, it prints out what items the player can take and drop.
     print("You can:")
     # Iterate over available exits
@@ -58,6 +76,9 @@ def print_menu(exits, room_items, inv_items):
         print("TAKE " + item["id"].upper() + " to take " + item["name"] + ".")
     for item in inv_items:
         print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
+    for q in room_people:
+        print("ASK " + q["id"].upper() + " to ask the " + q["name"] + " if they can help"
+            " you find your target.")
     
     print("What do you want to do?")
 
@@ -85,7 +106,25 @@ def execute_go(direction):
         current_room = new_room
     else:
         print("You cannot go there.")
-    
+
+def execute_ask(people_id):
+    o = current_room["people"]
+    if o == []:
+        print("There is nobody here")
+    else:
+        for l in o:
+            if people_id == l["id"]:
+                print("")
+                print("YOU:")
+                print("")
+                print("Hey, have you seen anyone suspicious running around?")
+                print("")
+                print(l["name"].upper() + ":")
+                print("")
+                print(l["knowledge"])
+                break
+    if people_id != l["id"]:
+        print("You cannot ask this person!")
 
 
 def execute_take(item_id):
@@ -102,6 +141,7 @@ def execute_take(item_id):
         print("You cannot take that.")
     elif(weight_ok(item_id) == False):
         print("You are carrying too much.")
+
 
     
 
@@ -181,6 +221,12 @@ def execute_command(command):
         else:
             print("Drop what?")
 
+    elif command[0] == "ask":
+        if len(command) > 1:
+            execute_ask(command[1])
+        else:
+            print("Ask who?")
+
     elif command[0] == "stats":
         execute_stats(attribute_dictionary)
         
@@ -196,11 +242,11 @@ def execute_command(command):
     elif command[0] == "rest":
         execute_rest()
 
-def menu(exits, room_items, inv_items):
+def menu(exits, room_items, inv_items, room_people):
     #This function will display the main menu, read player's input, normalise it and then return normalised user's input.
     
     # Display menu
-    print_menu(exits, room_items, inv_items)
+    print_menu(exits, room_items, inv_items, room_people)
 
     # Read player's input
     user_input = input("> ")
@@ -225,6 +271,7 @@ def main():
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_inventory_items(inventory)
+        print_room_people(current_room)
 
         # Show the menu with possible actions and ask the player
         command = menu(current_room["exits"], current_room["items"], inventory)

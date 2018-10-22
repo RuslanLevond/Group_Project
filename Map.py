@@ -11,9 +11,13 @@ Now you need to go after your targets. You have two safe choices from the place 
 You can either go east to the garden or go west to an abandoned building
 to avoid dealing with police, get some rest and pick up items.""",
     
-    "exits": {"east": "Garden", "west": "Abandoned"},
+    "exits": {"inside": "Reception", "east": "Garden", "west": "Abandoned"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": []
     
 #name of the street, a street id, items in the streets, a
 #description of the street
@@ -31,7 +35,11 @@ You can either pick up the items or leave the building from the south side.""",
 
     "exits": {"south": "Pharmacy"},
 
-    "items":[]
+    "items":[],
+
+    "enemies": [],
+
+    "people": [people_junkie]
 ##knife, int skillbook
 }
 
@@ -46,7 +54,11 @@ skillbook on the floor. You can pick it up, or go south to the train station."""
 
     "exits": {"south": "Station1"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": [people_old_lady]
 ##str skillbook
 }
 
@@ -61,7 +73,11 @@ leads to the toys store across the road.""",
     
     "exits": {"east": "Toys"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": []
 ##nothing
 }
 
@@ -77,7 +93,11 @@ improsened earlier""",
 
     "exits": {"north": "Building1"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": [people_child]
 ##str skillbook
 }
 
@@ -91,7 +111,11 @@ or you can go back to the garden from the north exit.""",
 
     "exits": {"north": "Garden", "south": "Station2"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": []
 ##ticket == false
 ##if ticket < 0, ticket==true
 ##ticket
@@ -108,7 +132,11 @@ or you can leave the train station from one of the exits, east or west.""",
 
     "exits": {"north": "Station1", "west": "Centre", "east": "Parking"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": []
 ##ticket
 }
 
@@ -124,7 +152,11 @@ to the church.""",
 
     "exits": {"south": "Church", "east": "Station2"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": [people_mafia]
 ##nothing
 }
 
@@ -138,7 +170,11 @@ the parking entrance. You can pick it up, or go back to the train station from t
 
     "exits": {"west": "Station2"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": []
 ##agi skillbook
 }
 
@@ -152,7 +188,11 @@ go north back to the city centre or you can continue south and go in front of th
 
     "exits": {"north": "Centre", "south": "Building2"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [],
+
+    "people": []
 ##int skillbook
 }
 
@@ -169,7 +209,11 @@ have missed something useful.""",
 
     "exits": {"north": "Church"},
 
-    "items": []
+    "items": [],
+
+    "enemies": [enemy_guard_outside],
+
+    "people": []
 }
 
 
