@@ -3,7 +3,6 @@ from Player import *
 from Items import *
 from Gameparser import *
 from People import *
-from Combat import *
 from Enemies import *
 
 def list_of_items(items):
@@ -321,10 +320,10 @@ def execute_command(command):
     elif command[0] == "rest":
         execute_rest(stats_dictionary["Stamina"])
 
-    elif command[1] == "inventory":
+    elif command[0] == "inventory":
         execute_inventory()
 
-    elif command[1] == "nothing":
+    elif command[0] == "nothing":
         pass
 
     elif command[0] == "search":
@@ -364,7 +363,48 @@ def search_menu(exits, room_items, inv_items, room_people):
     normalised_user_input = normalise_input(user_input)
 
     return normalised_user_input
-
+def combat_menu(health, base_health, name, damage):
+    player_input = ("")
+    Player_Input = []
+    while health > 0:
+        if health == base_health:
+            print("The", name, "is about to attack you and the only way to get past will be to defeat him!")
+            for items in inventory:
+                print ("use", items["id"].upper(), "to attack the", name, "first")
+            print("what would you like to do?")
+            Player_Input = input(" ")
+            Player_Input = normalise_input(Player_Input)
+            player_input = "".join(Player_Input)
+            for items in inventory:
+                if items["id"] == player_input and player_input == "baton" or items["id"] == player_input and player_input == "baseball":
+                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                    health = health - 1
+                elif items["id"] == player_input and player_input == "pistol":
+                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                    health = health - 2
+                elif items["id"] == player_input and player_input == "stun":
+                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                    health = health - 4
+        elif health > 0 and health < base_health:
+            print("The", name, "is still alive and about to attack again, what will you do?")
+            for items in inventory:
+                print ("USE", items["id"].upper(), "to attack the", name, "first")
+            print("what would you like to do?")
+            Player_Input = input(" ")
+            Player_Input = normalise_input(Player_Input)
+            player_input = "".join(Player_Input)
+            for items in inventory:
+                if items["id"] == player_input and player_input == "baton" or items["id"] == player_input and player_input == "baseball":
+                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                    health = health - 1
+                elif items["id"] == player_input and player_input == "pistol":
+                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                    health = health - 2
+                elif items["id"] == player_input and player_input == "stun":
+                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                    health = health - 4
+    print("you have killed the", name,"anything the", name, "had would have dropped on the floor")
+    current_room["enemies"] = []
 
 def move(exits, direction):
     #This function will return all rooms and directions from them which the player will move into.
@@ -380,6 +420,8 @@ def main():
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_room_people(current_room)
+        if current_room["enemies"] != []:
+            combat_menu(current_room["enemies"][0]["health"], current_room["enemies"][0]["base_health"], current_room["enemies"][0]["name"], current_room["enemies"][0]["damage"])
 
         # Show the menu with possible actions and ask the player
         command = menu(current_room["exits"], current_room["items"], inventory, current_room["people"], current_room["enemies"])

@@ -5,7 +5,7 @@ from Items import *
 from Gameparser import *
 from Game import *
 
-current_room = rooms["Garden"]
+current_room = rooms["Cell1"]
 
 attribute_dictionary = {
     "Strength" : 0,
@@ -14,7 +14,7 @@ attribute_dictionary = {
     }
 #Here all of the players stats would be stored, skill points the player have chosen would effect the character's statistics.
 stats_dictionary = {
-    "Max health" : 100,
+    "Max health" : 10,
     "Accuracy" : 0.25,
     "Stamina" : 5
     }

@@ -21,7 +21,7 @@ items_pistol = {
     "damage" : 2
     }
 items_stun_gun = {
-    "id" : "stunner",
+    "id" : "stun",
 
     "description" : "A cheapy looking stun gun with one use maximum.",
 
@@ -32,7 +32,7 @@ items_stun_gun = {
     "damage" : 3
     }
 items_baseball_bat = {
-    "id" : "bat",
+    "id" : "baseball",
 
     "description" : "A heavy looking full metal baseball bat.",
 
