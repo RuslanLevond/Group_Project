@@ -1,4 +1,5 @@
 
+
 from Map import *
 from Player import *
 from Items import *
@@ -75,14 +76,18 @@ def print_menu(exits, room_items, inv_items, room_people):
         print_exit(direction, exit_leads_to(exits, direction))
     for item in room_items:
         print("TAKE " + item["id"].upper() + " to take " + item["name"] + ".")
-    for item in inv_items:
-        print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
     for q in room_people:
         print("ASK " + q["id"].upper() + " to ask the " + q["name"] + " if they can help"
             " you find your target.")
+<<<<<<< HEAD
     if(current_room == rooms["Station1"]):
         print("BUY to buy a train ticket.")
     print("STATS to check your character's stats.")
+=======
+    if inventory != []:
+        print ("SHOW INVENTORY")
+    
+>>>>>>> de9fba0432a40dc0bc93cf2a5de6527e22720d7e
     print("What do you want to do?")
 
 
@@ -253,6 +258,20 @@ def execute_rest(max_rest):
         print("Stamina : " + str(stats_dictionary["Stamina"]))
     else:
         print("You cannot rest here, there is an enemy nearby.")
+def execute_inventory():
+    if inventory == []:
+        print("You have no items in your inventory")
+    else:
+        for items in inventory:
+            print ("You have", items["name"])
+    print ("you can:")
+    for item in inventory:
+        print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
+    print ("DO NOTHING")
+    command = inventory_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
+    execute_command(command)
+
+
 
 def execute_command(command):
     #This function will check if user types in go, take or drop and will call appropriate execute functions.
@@ -297,6 +316,10 @@ def execute_command(command):
 
     elif command[0] == "rest":
         execute_rest()
+    elif command[1] == "inventory":
+        execute_inventory()
+    elif command[1] == "nothing":
+        pass
     else:
     	print("You can't do that!")
 
@@ -305,6 +328,16 @@ def menu(exits, room_items, inv_items, room_people):
     
     # Display menu
     print_menu(exits, room_items, inv_items, room_people)
+
+    # Read player's input
+    user_input = input("> ")
+
+    # Normalise the input
+    normalised_user_input = normalise_input(user_input)
+
+    return normalised_user_input
+def inventory_menu(exits, room_items, inv_items, room_people):
+    #This function will display the main menu, read player's input, normalise it and then return normalised user's input.
 
     # Read player's input
     user_input = input("> ")
