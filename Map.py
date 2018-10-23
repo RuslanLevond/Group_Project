@@ -331,7 +331,7 @@ to the north station. You can either find a ticket to get on the train
 and go back to the north train station
 or you can leave the train station from one of the exits, east or west.""",
 
-    "exits": {"north": "Station1", "west": "Centre", "east": "Parking"},
+    "exits": {"west": "Centre", "east": "Parking"},
 
     "items": [],
 
