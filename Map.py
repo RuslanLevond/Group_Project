@@ -1,12 +1,7 @@
 #places
 from Items import *
 from People import *
-<<<<<<< HEAD
 from Enemies import *
-=======
-from Combat import *
-#from Enemies import *
->>>>>>> b0f03ecde2869667d473ca3df7fd01f809b94e48
 
 #Basement(rooms)
 cell_room = {
@@ -15,8 +10,8 @@ cell_room = {
     
     "description": 
     """
-You have been in this cell for weeks. Behind the cell doors
-you will find the security room. The cell doors are facing north.""",
+    You have been in this cell for weeks. Behind the cell doors
+    you will find the security room. The cell doors are facing north.""",
 
     "exits": {"north":"Securityroom1"},
 
@@ -35,9 +30,8 @@ security_room = {
 
     "description":
     """ 
-A guard has seemingly passed out next to his desk, how convenient. You better
-check this room carefully, there could be useful items here. The staircase is 
-to the west of the security room.""",
+    The staircase is to the west of the security room. But, you better
+    check this room carefully, there could be useful items here.""",
 
     "exits": {"south": "Cell1", "west": "Stairsone1"},
 
@@ -57,8 +51,8 @@ staircase_1 = {
 
     "description":
     """ 
-This seems to be the only way to get to the floor above. 
-Go up to enter the ground floor or go east to enter the secuirty room again. """,
+    This seems to be the only way to get to the floor above. 
+    Go up to enter the ground floor. """,
 
     "exits": {"up":"Stairstwo1", "east": "Securityroom1"},
 
@@ -79,8 +73,8 @@ staircase_2 = {
 
     "description":
     """ 
-Going down will bring you to the basement floor. Going up will bring
-you to the first floor. To enter the reception room go east. """,
+    Going down will bring you to the basement floor.
+    going up will bring you to the first floor. """,
 
     "exits": {"up":"Stairsthree1", "down": "Stairsone1" , "east": "Reception1"},
 
@@ -99,9 +93,9 @@ reception_room = {
 
     "description":
     """ 
-This is the reception room. The entrance to the building is north.
-However, you will need permission  from the control room. To get back to the 
-staircase go west.""",
+    This is the reception room. The entrance to the building is north.
+    However, you will need promision from the control room. To get back to the 
+    staircase go west.""",
 
     "exits": {"north": "Building1", "west":"Stairstwo1"},
 
@@ -121,8 +115,8 @@ staircase_3 = {
 
     "description":
     """
-Going down will bring you back to the ground floor.
-Going up will bring you to the roof. To enter the lobby go east.""",
+    Going down will bring you back to the ground floor.
+    Going up will bring you to the roof.""",
 
     "exits": {"up": "Roof1", "down": "Stairstwo1", "east": "Lobby1"},
 
@@ -141,8 +135,8 @@ lobby_room = {
 
     "description":
     """ 
-You are at the lobby on floor one. To enter the control room go south.
-To get back to the staircase go west.""",
+    You are at the lobby on floor one. To enter the control room go south.
+    To get back to the staircase go west.""",
 
     "exits": {"west":"Stairsthree1", "south": "Control1"},
 
@@ -161,8 +155,8 @@ control_room = {
 
     "description":
     """
-This is the control room. After you leave the control room you can
-exit the building from reception. To go back to the lobby go north.""",
+    This is the control room. You are able to unlock the main doors from here.
+    To go back to the lobby go north.""",
 
     "exits": {"north": "Lobby1"},
 
@@ -184,8 +178,8 @@ roof_floor = {
 
     "description":
     """ 
-You are on the roof. Its too high to jump down. But there may be another way to 
-down. To go back to the first floor go down.""",
+    You are on the roof. Its too high to jump down. 
+    To go back to the first floor go down.""",
 
     "exits": {"down": "Stairsthree1", "north": "Building1"},
 
@@ -418,7 +412,7 @@ have missed something useful.""",
 
     "items": [],
 
-    #"enemies": [enemy_guard_outside],
+    "enemies": [enemy_guard_outside],
 
     "people": []
 }
@@ -439,7 +433,7 @@ room_reception = {
 
     "items": [],
 
-    #"enemies" : [enemy_receptionist],
+    "enemies" : [enemy_receptionist],
 
     "people": []
 }
@@ -469,7 +463,7 @@ room_toilet = {
 
     "items": [items_ammunition, items_pistol, items_intelligence_book], # The ammunition and a pistol would be dropped when the player kills the enemy.
  
-    #"enemies" : [enemy_guard_toilet],
+    "enemies" : [enemy_guard_toilet],
 
     "people": []
 }
@@ -499,7 +493,7 @@ room_corridor = {
 
     "items": [items_b2_keycard], # Guard drops this item
 
-    #"enemies" : [enemy_guard_floor1],
+    "enemies" : [enemy_guard_floor1],
 
     "people": []
 }
@@ -574,7 +568,7 @@ room_security = {
 
     "items": [items_pistol, items_ammunition], # They will drop if the kill the enemy.
 
-    #"enemies" : [enemy_guard_security],
+    "enemies" : [enemy_guard_security],
 
     "people": []
 }
@@ -619,7 +613,7 @@ room_main_office = {
 
     "items": [items_serum_207], # Boss will drop this item.
 
-    #"enemies" : [enemy_BIGBOSS],
+    "enemies" : [enemy_BIGBOSS],
 
     "people": []
 }
@@ -628,7 +622,7 @@ room_main_office = {
 ####END
 
 
-roomsx = {
+rooms = {
 #basement
     "Cell1": cell_room,
     "Securityroom1": security_room,

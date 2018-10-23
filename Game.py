@@ -37,7 +37,8 @@ def print_room_people(room):
     if str(h) == "":
         pass
     else:
-        print ("There is " + str(h) + " here.")
+        print("There is " + str(h) + " here.")
+        print("")
         
 def print_inventory_items(items):
     #This function takes a list of player's inventory items and prints them.
