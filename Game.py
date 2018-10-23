@@ -26,7 +26,7 @@ def print_room_items(room):
     #This function takes a room as an input and prints all of the items.
     list_items = list_of_items(room["items"])
     if(list_items == ""):
-        pass
+        print("There are no items here.")
     else:
         print("There is " + list_items + " here.\n")
 
@@ -54,8 +54,7 @@ def print_room(room):
     print()
     print(room["description"])
     print()
-    if(room["items"] != []):
-        print_room_items(room)
+
         
 def exit_leads_to(exits, direction):
     #This function takes a dictionary of exits and a direction, returns the exits from the current room.
@@ -72,11 +71,10 @@ def print_menu(exits, room_items, inv_items, room_people, room_enemies):
     for direction in exits:
         # Print the exit name and where it leads to
         print_exit(direction, exit_leads_to(exits, direction))
-    for item in room_items:
-        print("TAKE " + item["id"].upper() + " to take " + item["name"] + ".")
     for q in room_people:
         print("ASK " + q["id"].upper() + " to ask the " + q["name"] + " if they can help"
             " you find your target.")
+    print("SEARCH PLACE to search for items around.")
     if inventory != []:
         print ("SHOW INVENTORY")
     if room_enemies == []:
@@ -267,7 +265,20 @@ def execute_inventory():
     command = inventory_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
     execute_command(command)
 
+def execute_search():
+    print_room_items(current_room)
+    print ("You can:")
+    for i in current_room["items"]:
+        print("TAKE " + i["id"].upper() + " to take " + i["name"] + ".")
+    print ("DO NOTHING")
+    command = search_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
+    execute_command(command)
 
+# list_items = list_of_items(room["items"])
+#     if(list_items == ""):
+#         pass
+#     else:
+#         print("There is " + list_items + " here.\n")
 
 def execute_command(command):
     #This function will check if user types in go, take or drop and will call appropriate execute functions.
@@ -312,10 +323,16 @@ def execute_command(command):
 
     elif command[0] == "rest":
         execute_rest(stats_dictionary["Stamina"])
+
     elif command[1] == "inventory":
         execute_inventory()
+
     elif command[1] == "nothing":
         pass
+
+    elif command[0] == "search":
+        execute_search()
+
     else:
     	print("You can't do that!")
 
@@ -343,6 +360,14 @@ def inventory_menu(exits, room_items, inv_items, room_people):
 
     return normalised_user_input
 
+def search_menu(exits, room_items, inv_items, room_people):
+    user_input = input("> ")
+
+    # Normalise the input
+    normalised_user_input = normalise_input(user_input)
+
+    return normalised_user_input
+
 
 def move(exits, direction):
     #This function will return all rooms and directions from them which the player will move into.
@@ -357,7 +382,6 @@ def main():
             #break
         # Display game status (room description, inventory etc.)
         print_room(current_room)
-        print_inventory_items(inventory)
         print_room_people(current_room)
 
         # Show the menu with possible actions and ask the player
