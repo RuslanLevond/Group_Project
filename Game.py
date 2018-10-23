@@ -43,7 +43,7 @@ def print_inventory_items(items):
     #This function takes a list of player's inventory items and prints them.
     list_items = list_of_items(items)
     if (list_items == ""):
-        pass
+        print("You don't have any items.")
     else:
         print("You have " + list_items + ".\n")
 
@@ -252,20 +252,17 @@ def execute_rest(max_rest):
         print("Stamina : " + str(stats_dictionary["Stamina"]))
     else:
         print("You cannot rest here, there is an enemy nearby.")
+
 def execute_inventory():
-    if inventory == []:
-        print("You have no items in your inventory")
-    else:
-        for items in inventory:
-            print ("You have", items["name"])
-    print ("you can:")
+    print_inventory_items(inventory)
+    print ("You can:")
     for item in inventory:
         print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
     print ("DO NOTHING")
     command = inventory_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
     execute_command(command)
 
-def execute_search():
+def execute_search(room):
     print_room_items(current_room)
     print ("You can:")
     for i in current_room["items"]:
@@ -331,7 +328,7 @@ def execute_command(command):
         pass
 
     elif command[0] == "search":
-        execute_search()
+    	execute_search(command[1])
 
     else:
     	print("You can't do that!")
