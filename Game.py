@@ -80,6 +80,8 @@ def print_menu(exits, room_items, inv_items, room_people):
     for q in room_people:
         print("ASK " + q["id"].upper() + " to ask the " + q["name"] + " if they can help"
             " you find your target.")
+    if inventory != []:
+        print ("SHOW INVENTORY")
     
     print("What do you want to do?")
 
@@ -234,12 +236,23 @@ def execute_rest(max_rest):
         print("Stamina : " + str(stats_dictionary["Stamina"]))
     else:
         print("You cannot rest here, there is an enemy nearby.")
+def execute_inventory():
+    if inventory == []:
+        print("You have no items in your inventory")
+    else:
+        for items in inventory:
+            print ("You have", items["name"])
+    print ("you can:")
+    for item in inventory:
+        print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
+    print ("DO NOTHING")
+    command = inventory_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
+    execute_command(command)
 
 def execute_command(command):
     #This function will check if user types in go, take or drop and will call appropriate execute functions.
     #Not sure if this line was necessary as we will be using 0 length commands. if 0 == len(command):
         #return
-
     if command[0] == "go":
         if len(command) > 1:
             execute_go(command[1])
@@ -278,6 +291,8 @@ def execute_command(command):
 
     elif command[0] == "rest":
         execute_rest()
+    elif command[0] == "show":
+        execute_inventory()
     else:
     	print("You can't do that!")
 
@@ -286,6 +301,16 @@ def menu(exits, room_items, inv_items, room_people):
     
     # Display menu
     print_menu(exits, room_items, inv_items, room_people)
+
+    # Read player's input
+    user_input = input("> ")
+
+    # Normalise the input
+    normalised_user_input = normalise_input(user_input)
+
+    return normalised_user_input
+def inventory_menu(exits, room_items, inv_items, room_people):
+    #This function will display the main menu, read player's input, normalise it and then return normalised user's input.
 
     # Read player's input
     user_input = input("> ")
@@ -308,7 +333,6 @@ def main():
         #if(player_win() == True):
             #break
         # Display game status (room description, inventory etc.)
-        print_room(current_room)
         print_inventory_items(inventory)
         print_room_people(current_room)
 
