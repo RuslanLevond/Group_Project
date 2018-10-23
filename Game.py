@@ -293,8 +293,10 @@ def execute_command(command):
 
     elif command[0] == "rest":
         execute_rest()
-    elif command[0] == "show":
+    elif command[1] == "inventory":
         execute_inventory()
+    elif command[1] == "nothing":
+        pass
     else:
     	print("You can't do that!")
 
