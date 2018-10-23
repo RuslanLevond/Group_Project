@@ -1,5 +1,3 @@
-
-
 from Map import *
 from Player import *
 from Items import *
@@ -67,7 +65,7 @@ def print_exit(direction, leads_to):
     #This function prints out where the player can go, the direction and the exit it leads to.
     print("GO " + direction.upper() + " to " + leads_to + ".")
 
-def print_menu(exits, room_items, inv_items, room_people):
+def print_menu(exits, room_items, inv_items, room_people, room_enemies):
     #This function calls print_exit and exit_leads_to functions which outputs player navigation options. As well, it prints out what items the player can take and drop.
     print("You can:")
     # Iterate over available exits
@@ -79,15 +77,11 @@ def print_menu(exits, room_items, inv_items, room_people):
     for q in room_people:
         print("ASK " + q["id"].upper() + " to ask the " + q["name"] + " if they can help"
             " you find your target.")
-<<<<<<< HEAD
-    if(current_room == rooms["Station1"]):
-        print("BUY to buy a train ticket.")
-    print("STATS to check your character's stats.")
-=======
     if inventory != []:
         print ("SHOW INVENTORY")
+    if room_enemies == []:
+        print("REST")
     
->>>>>>> de9fba0432a40dc0bc93cf2a5de6527e22720d7e
     print("What do you want to do?")
 
 
@@ -123,10 +117,7 @@ def execute_go(direction):
     global current_room
     exits = current_room["exits"]
     if is_valid_exit(exits, direction) == True:
-        if (items_train_ticket["aquired"] == False and current_room["name"] == "the NORTH train station"):
-            print("You cannot travel this direction!")
-        else:
-            current_room = move(exits, direction)
+        current_room = move(exits, direction)
     else:
         print("You cannot go there.")
 
@@ -206,30 +197,16 @@ def execute_drop(item_id):
             print("You cannot drop that.")
 
 def execute_stats(attribute):
-
-#This function will show current player's stats, all of the attributes they have picked. The attribute parameter is going to be attribute_dictionary and stats_dictionary.
-    print()
-    print("Your current attributes are:")
+    #This function will show current player's stats, all of the attributes they have picked. The attribute parameter is going to be attribute_dictionary.
+    print("Your current stats are:")
     print("Strength - " + str(attribute["Strength"]))
     print("Intelligence - " + str(attribute["Intelligence"]))
     print("Agility - " + str(attribute["Agility"]))
-    print()
-    print("Your current stats are:")
-    print("Max health - " + str(stats_dictionary["Max health"]))
-    print("Accuracy (chance of hitting an enemy)- " + str(stats_dictionary["Accuracy"]))
-    print("Stamina (if it hits 0, you are not able to enter any rooms. To regain stamina, you will need to rest.)- " + str(stats_dictionary["Stamina"]))
 
 def execute_buy():
-    #This function will be used in the train station to buy a ticket for the train. The player can go to the train station south only with the ticket.
-    for inv in inventory:
-        if (inv["id"] == "ticket" and current_room == rooms["Station1"]):
-            print("You cannot buy anymore tickets.")
-    if (current_room == rooms["Station1"] and items_train_ticket["aquired"] == False):
-        print("You bought a ticket for the train. Now you can go on the train.")
-        inventory.append(items_train_ticket)
-        items_train_ticket["aquired"] = True
-    elif (current_room != rooms["Station1"]):
-        print("You cannot buy in this room.")
+    #This function will be used in the train station to buy a ticket for the train. The player can go to the train station two only with the ticket.
+    print("You bought a ticket for the train. Now you can go on the train.")
+    inventory.append(items["id"]["ticket"])
 
 def execute_pin(user_pin):
     #This function will check if the user has entered a valid pin number for the elevator. If not, then the enter_pin function will be executed where the player will be asked to enter a pin number again. Otherwise, the player can use the elevator.
@@ -251,7 +228,7 @@ def enter_pin():
 
 def execute_rest(max_rest):
     #This function will regain player's stamina by resting. The player will not be able to rest if there is an enemy in the room. It will put player's stamina back to the default which is effected by the attributes using updated_stamina variable as max_rest parameter which is declared in the Player.py
-    if (current_room["enemy"] == ""):
+    if (current_room["enemies"] == []):
         print("You are resting...")
         stats_dictionary["Stamina"] = max_rest
         print("You have rested, now you stamina is back to usual.")
@@ -315,7 +292,7 @@ def execute_command(command):
         execute_buy()
 
     elif command[0] == "rest":
-        execute_rest()
+        execute_rest(stats_dictionary["Stamina"])
     elif command[1] == "inventory":
         execute_inventory()
     elif command[1] == "nothing":
@@ -323,11 +300,11 @@ def execute_command(command):
     else:
     	print("You can't do that!")
 
-def menu(exits, room_items, inv_items, room_people):
+def menu(exits, room_items, inv_items, room_people, room_enemies):
     #This function will display the main menu, read player's input, normalise it and then return normalised user's input.
     
     # Display menu
-    print_menu(exits, room_items, inv_items, room_people)
+    print_menu(exits, room_items, inv_items, room_people, room_enemies)
 
     # Read player's input
     user_input = input("> ")
@@ -365,7 +342,7 @@ def main():
         print_room_people(current_room)
 
         # Show the menu with possible actions and ask the player
-        command = menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
+        command = menu(current_room["exits"], current_room["items"], inventory, current_room["people"], current_room["enemies"])
 
         # Execute the player's command
         execute_command(command)

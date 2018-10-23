@@ -106,9 +106,7 @@ items_train_ticket = {
 
     "mass" : 0,
 
-    "damage" : 0,
-
-    "aquired" : False
+    "damage" : 0
     }
 items_b2_keycard = {
     "id" : "keycard2",

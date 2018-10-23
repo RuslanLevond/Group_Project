@@ -19,7 +19,7 @@ you will find the security room. The cell doors are facing north.""",
 
     "items":[],
 
-    "enenmies":[],
+    "enemies":[],
 
     "people": []
 }
@@ -40,7 +40,7 @@ to the west of the security room.""",
 
     "items":[items_security_baton],
 
-    "enenmies":[],
+    "enemies":[],
 
     "people": []
 
@@ -61,7 +61,7 @@ Go up to enter the ground floor or go east to enter the security room again. """
 
     "items":[],
 
-    "enenmies":[],
+    "enemies":[],
 
     "people": []
 }
@@ -83,7 +83,7 @@ you to the first floor. To enter the reception room go east """,
 
     "items":[],
 
-    "enenmies": [],
+    "enemies": [],
 
     "people": []
 }
@@ -104,7 +104,7 @@ staircase go west.""",
 
     "items": [],
 
-    "enenmies": [],
+    "enemies": [],
 
     "people": []
 }
@@ -125,7 +125,7 @@ Going up will bring you to the roof. To enter the lobby go east.""",
 
     "items":[],
 
-    "enenmies": [],
+    "enemies": [],
 
     "people": []
 }
@@ -145,7 +145,7 @@ To get back to the staircase go west.""",
 
     "items":[],
 
-    "enenmies": [],
+    "enemies": [],
 
     "people": []
 }
@@ -165,7 +165,7 @@ exit the building from reception. To go back to the lobby go north.""",
 
     "items":[],
 
-    "enenmies": [],
+    "enemies": [],
 
     "people": []
 }
@@ -188,7 +188,7 @@ to get down. To go back to the first floor go down.""",
 
     "items":[items_rope],
 
-    "enenmies": [],
+    "enemies": [],
 
     "people": []
 
@@ -332,7 +332,7 @@ to the north station. You can either find a ticket to get on the train
 and go back to the north train station
 or you can leave the train station from one of the exits, east or west.""",
 
-    "exits": {"west": "Centre", "east": "Parking"},
+    "exits": {"north": "Station1", "west": "Centre", "east": "Parking"},
 
     "items": [],
 
