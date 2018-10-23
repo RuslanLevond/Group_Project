@@ -1,7 +1,11 @@
 #The attribute dictionary will store all of the skill points the player has chosen.
 from Map import rooms
 
-current_room = rooms["Cell1"]
+from Items import *
+from Gameparser import *
+from Game import *
+
+current_room = rooms["Garden"]
 
 attribute_dictionary = {
     "Strength" : 0,
@@ -98,16 +102,22 @@ def player_attributes():
 def body_type():
     print("\nNow please choose your character's body type. Body types include 'Thin', 'Muscular' and 'Overweight'.")
     print("Depending on your choice, your character would get 2 additional skill points directed to specific attribute branch. e.g. Muscular body type will gain 2 strength skill points.\n")
-    weight = input("Please enter your character's body type by entering 'Thin', 'Muscular' or 'Overweight': ")
-    if(weight.lower() == "thin"):
-        attribute_dictionary["Agility"] = attribute_dictionary["Agility"] + 2
-        print("As you have choosen your character to be " + weight.lower() + ", your character will have 2 bonus Agility skill points.\n")
-    elif(weight.lower() == "muscular"):
-        attribute_dictionary["Strength"] = attribute_dictionary["Strength"] + 2
-        print("As you have choosen your character to be " + weight.lower() + ", your character will have 2 bonus Strength skill points.\n")
-    elif(weight.lower() == "overweight"):
-        attribute_dictionary["Intelligence"] = attribute_dictionary["Intelligence"] + 2
-        print("As you have choosen your character to be " + weight.lower() + ", your character will have 2 bonus Intelligence skill points.\n")
+    while True:
+        weight = input("Please enter your character's body type by entering 'Thin', 'Muscular' or 'Overweight': ")
+        if(weight.lower() == "thin"):
+            attribute_dictionary["Agility"] = attribute_dictionary["Agility"] + 2
+            print("As you have choosen your character to be " + weight.lower() + ", your character will have 2 bonus Agility skill points.\n")
+            break
+        elif(weight.lower() == "muscular"):
+            attribute_dictionary["Strength"] = attribute_dictionary["Strength"] + 2
+            print("As you have choosen your character to be " + weight.lower() + ", your character will have 2 bonus Strength skill points.\n")
+            break
+        elif(weight.lower() == "overweight"):
+            attribute_dictionary["Intelligence"] = attribute_dictionary["Intelligence"] + 2
+            print("As you have choosen your character to be " + weight.lower() + ", your character will have 2 bonus Intelligence skill points.\n")
+            break
+        else:
+            print("Please enter an appropriate weight category.")
 #The update function will update player's statistics depending on the attribute.
 def update_attributes(attribute):
     if(attribute == "Strength"):

@@ -81,6 +81,9 @@ def print_menu(exits, room_items, inv_items, room_people, room_enemies):
         print ("SHOW INVENTORY")
     if room_enemies == []:
         print("REST")
+    if(current_room == rooms["Station1"]):
+        print("BUY to buy a train ticket.")
+    print("STATS to check your character's stats.")
     
     print("What do you want to do?")
 
@@ -117,7 +120,10 @@ def execute_go(direction):
     global current_room
     exits = current_room["exits"]
     if is_valid_exit(exits, direction) == True:
-        current_room = move(exits, direction)
+        if (items_train_ticket["aquired"] == False and current_room["name"] == "the NORTH train station"):
+            print("You cannot travel this direction!")
+        else:
+            current_room = move(exits, direction)
     else:
         print("You cannot go there.")
 
@@ -198,15 +204,28 @@ def execute_drop(item_id):
 
 def execute_stats(attribute):
     #This function will show current player's stats, all of the attributes they have picked. The attribute parameter is going to be attribute_dictionary.
-    print("Your current stats are:")
+    print()
+    print("Your current attributes are:")
     print("Strength - " + str(attribute["Strength"]))
     print("Intelligence - " + str(attribute["Intelligence"]))
     print("Agility - " + str(attribute["Agility"]))
+    print()
+    print("Your current stats are:")
+    print("Max health - " + str(stats_dictionary["Max health"]))
+    print("Accuracy (chance of hitting an enemy)- " + str(stats_dictionary["Accuracy"]))
+    print("Stamina (if it hits 0, you are not able to enter any rooms. To regain stamina, you will need to rest.)- " + str(stats_dictionary["Stamina"]))
 
 def execute_buy():
     #This function will be used in the train station to buy a ticket for the train. The player can go to the train station two only with the ticket.
-    print("You bought a ticket for the train. Now you can go on the train.")
-    inventory.append(items["id"]["ticket"])
+    for inv in inventory:
+        if (inv["id"] == "ticket" and current_room == rooms["Station1"]):
+            print("You cannot buy anymore tickets.")
+    if (current_room == rooms["Station1"] and items_train_ticket["aquired"] == False):
+        print("You bought a ticket for the train. Now you can go on the train.")
+        inventory.append(items_train_ticket)
+        items_train_ticket["aquired"] = True
+    elif (current_room != rooms["Station1"]):
+        print("You cannot buy in this room.")
 
 def execute_pin(user_pin):
     #This function will check if the user has entered a valid pin number for the elevator. If not, then the enter_pin function will be executed where the player will be asked to enter a pin number again. Otherwise, the player can use the elevator.
