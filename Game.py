@@ -1,9 +1,11 @@
+
 from Map import *
 from Player import *
 from Items import *
 from Gameparser import *
 from People import *
 from Combat import *
+from Enemies import *
 
 def list_of_items(items):
     #This function puts items into the list.
@@ -85,23 +87,35 @@ def is_valid_exit(exits, chosen_exit):
     #This function checks if the exit the player has inputted is valid.
     return chosen_exit in exits
 
-def weight_ok(item_id):
-    #This function checks if the weight of the inventory does not exceed player's item weight limit.
-    total_mass = 0
-    for item in inventory:
-        total_mass = total_mass + item["mass"]
-    total_mass = total_mass + items[item_id]["mass"]
-    if (total_mass < 3):
-        return True
-    else:
-        return False
+def mass_kg():
+    mass = 0
+    for c in inventory:
+        mass = mass + c["mass"]
+        if mass > 2.5:
+            mass = mass - c["mass"]
+            print("")
+            print("You are currently carrying " + str(mass) + " kg.")
+            print("You cannot carry heavier than 2.5 kg.")
+            print("You have to drop something in order to take the item.")
+            return False
+
+# def weight_ok(item_id):
+#     #This function checks if the weight of the inventory does not exceed player's item weight limit.
+#     total_mass = 0
+#     for item in inventory:
+#         total_mass = total_mass + item["mass"]
+#     total_mass = total_mass + items[item_id]["mass"]
+#     if (total_mass < 3):
+#         return True
+#     else:
+#         return False
 
 def execute_go(direction):
     #This function calls is_valid_exit function which would check if the exit is valid and then if the exit is valid, it would update the current room.
     global current_room
-    if (is_valid_exit(current_room["exits"], direction) == True):
-        new_room = move(current_room["exits"], direction)
-        current_room = new_room
+    exits = current_room["exits"]
+    if is_valid_exit(exits, direction) == True:
+        current_room = move(exits, direction)
     else:
         print("You cannot go there.")
 
@@ -127,34 +141,58 @@ def execute_ask(people_id):
 
 def execute_take(item_id):
     #This function will check if the item is in the room and will put it in the player's inventory only in the case if the weight is ok and the item is in the room.
-    item_succeed = False
-    for item in current_room["items"]:
-        if(item["id"] == item_id):
-            item_succeed = True
-    if(item_succeed and weight_ok(item_id) == True):
-        items_id = items[item_id]
-        inventory.append(items_id)
-        current_room["items"].remove(items_id)
-    elif(item_succeed == False):
-        print("You cannot take that.")
-    elif(weight_ok(item_id) == False):
-        print("You are carrying too much.")
+    # item_succeed = False
+    # for item in current_room["items"]:
+    #     if(item["id"] == item_id):
+    #         item_succeed = True
+    # if(item_succeed and weight_ok(item_id) == True):
+    #     items_id = items[item_id]
+    #     inventory.append(items_id)
+    #     current_room["items"].remove(items_id)
+    # elif(item_succeed == False):
+    #     print("You cannot take that.")
+    # elif(weight_ok(item_id) == False):
+    #     print("You are carrying too much.")
 
-
+    m = current_room["items"]
+    if m == []:
+        print("There are no items left to take in this room.")
+    else:
+        for n in m:
+            if n["id"] == item_id:
+                inventory.append(n)
+                m.remove(n)
+                break
+        if n["id"] != item_id:
+            print("You cannot take that.")
+        if mass_kg() == False:
+            inventory.remove(n)
+            m.append(n)
     
 
 def execute_drop(item_id):
     #This function works just like execute_take function, it will check if the item is in inventory and then drop it into the room's items.
-    item_succeed = False
-    for item in inventory:
-        if(item["id"] == item_id):
-            item_succeed = True
-    if(item_succeed):
-        items_id = items[item_id]
-        current_room["items"].append(items_id)
-        inventory.remove(items_id)
+    # item_succeed = False
+    # for item in inventory:
+    #     if(item["id"] == item_id):
+    #         item_succeed = True
+    # if(item_succeed):
+    #     items_id = items[item_id]
+    #     current_room["items"].append(items_id)
+    #     inventory.remove(items_id)
+    # else:
+    #     print("You cannot drop that.")
+
+    if inventory == []:
+        print("You don't have any items.")
     else:
-        print("You cannot drop that.")
+        for r in inventory:
+            if item_id == r["id"]:
+                current_room["items"].append(r)
+                inventory.remove(r)
+                break
+        if r["id"] != item_id:
+            print("You cannot drop that.")
 
 def execute_stats(attribute):
     #This function will show current player's stats, all of the attributes they have picked. The attribute parameter is going to be attribute_dictionary.
@@ -239,6 +277,8 @@ def execute_command(command):
 
     elif command[0] == "rest":
         execute_rest()
+    else:
+    	print("You can't do that!")
 
 def menu(exits, room_items, inv_items, room_people):
     #This function will display the main menu, read player's input, normalise it and then return normalised user's input.
@@ -262,7 +302,6 @@ def move(exits, direction):
     return rooms[exits[direction]]
 
 def main():
-    current_room = rooms["Cell1"]
     # Main game loop
     while True:
         #if(player_win() == True):

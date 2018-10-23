@@ -1,8 +1,6 @@
 #places
-
 from Items import *
 from People import *
-from Combat import *
 from Enemies import *
 
 #Basement(rooms)
@@ -91,7 +89,7 @@ staircase_2 = {
 
 reception_room = {
     
-    "name": "Reception1",
+    "name": "Reception",
 
     "description":
     """ 
@@ -153,7 +151,7 @@ lobby_room = {
 
 control_room = {
     
-    "name": "Control1 room",
+    "name": "Control room",
 
     "description":
     """
@@ -176,7 +174,7 @@ control_room = {
 #Roof1
 roof_floor = {
     
-    "name":"Building one Roof1",
+    "name":"Building one Roof",
 
     "description":
     """ 
@@ -255,7 +253,7 @@ variety of flowers, trees and fields. There are also a lot of benches and
 historical statues. This garden leads to the train station. You see a strenght
 skillbook on the floor. You can pick it up, or go south to the train station.""",
 
-    "exits": {"south": "Station1"},
+    "exits": {"south": "Station1", "west": "Building1"},
 
     "items": [items_strength_book],
 
@@ -410,7 +408,7 @@ your target, however you can go back to the church if you don't think the target
 after the evaluation you feel like you need to pick up more items and want to go back and check if you
 have missed something useful.""",
 
-    "exits": {"north": "Church"},
+    "exits": {"north": "Church", "inside": "Reception"},
 
     "items": [],
 

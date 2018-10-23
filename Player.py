@@ -1,8 +1,11 @@
 #The attribute dictionary will store all of the skill points the player has chosen.
-from Map import *
+from Map import rooms
+
 from Items import *
 from Gameparser import *
+from Game import *
 
+current_room = rooms["Cell1"]
 
 attribute_dictionary = {
     "Strength" : 0,
