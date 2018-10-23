@@ -1,4 +1,5 @@
 
+
 from Map import *
 from Player import *
 from Items import *
@@ -75,8 +76,6 @@ def print_menu(exits, room_items, inv_items, room_people):
         print_exit(direction, exit_leads_to(exits, direction))
     for item in room_items:
         print("TAKE " + item["id"].upper() + " to take " + item["name"] + ".")
-    for item in inv_items:
-        print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
     for q in room_people:
         print("ASK " + q["id"].upper() + " to ask the " + q["name"] + " if they can help"
             " you find your target.")
@@ -249,10 +248,13 @@ def execute_inventory():
     command = inventory_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
     execute_command(command)
 
+
+
 def execute_command(command):
     #This function will check if user types in go, take or drop and will call appropriate execute functions.
     #Not sure if this line was necessary as we will be using 0 length commands. if 0 == len(command):
         #return
+
     if command[0] == "go":
         if len(command) > 1:
             execute_go(command[1])
@@ -333,6 +335,7 @@ def main():
         #if(player_win() == True):
             #break
         # Display game status (room description, inventory etc.)
+        print_room(current_room)
         print_inventory_items(inventory)
         print_room_people(current_room)
 
