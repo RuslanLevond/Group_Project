@@ -7,7 +7,7 @@ items_security_baton = {
 
     "mass" : 1,
     
-    "damage" : 1
+    "damage" : 10
     }
 items_pistol = {
     "id" : "pistol",
@@ -18,7 +18,7 @@ items_pistol = {
 
     "mass" : 1,
 
-    "damage" : 2
+    "damage" : 20
     }
 items_stun_gun = {
     "id" : "stun",
@@ -29,7 +29,7 @@ items_stun_gun = {
 
     "mass" : 1,
 
-    "damage" : 3
+    "damage" : 30
     }
 items_baseball_bat = {
     "id" : "baseball",
@@ -40,7 +40,7 @@ items_baseball_bat = {
 
     "mass" : 1,
 
-    "damage" : 1
+    "damage" : 10
     }
 ##items_garrotte_wire = {
 ##    "id" : "wire",

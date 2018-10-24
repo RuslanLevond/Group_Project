@@ -186,7 +186,7 @@ def execute_take(item_id):
                 items_in_room.remove(items)
                 if (items["id"] == "strength"):
                     attribute_dictionary["Strength"] = attribute_dictionary["Strength"] + 1
-                    stats_dictionary["Max health"] = stats_dictionary["Max health"] + 1 
+                    stats_dictionary["Max health"] = stats_dictionary["Max health"] + 10 
                     print("Your strength attributes has been increased.")
                     inventory.remove(items)
                 elif (items["id"] == "intelligence"):
@@ -201,7 +201,7 @@ def execute_take(item_id):
                     inventory.remove(items)
                 elif (items["id"] == "aid"):
                     print("Your health has been regenerated.")
-                    stats_dictionary["Max health"] = attribute_dictionary["Strength"] + 8
+                    stats_dictionary["Max health"] = attribute_dictionary["Strength"] * 10 + 100
                     inventory.remove(items)
                 elif (items["id"] == "serum"):
                     break
@@ -289,7 +289,7 @@ def execute_inventory():
     print ("You can:")
     for item in inventory:
         print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
-    print ("DO NOTHING")
+    print ("Press ENTER to leave the inventory.")
     command = inventory_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
     execute_command(command)
 
@@ -299,12 +299,15 @@ def execute_search(room):
     print ("You can:")
     for i in current_room["items"]:
         print("TAKE " + i["id"].upper() + " to take " + i["name"] + ".")
-    print ("DO NOTHING")
+    print ("Press ENTER to exit the menu.")
     command = search_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
     execute_command(command)
 
 def execute_command_stamina(command, stamina):
-    if command[0] == "go":
+    if len(command) == 0:
+        return stamina
+        pass
+    elif command[0] == "go":
         if(stamina == 0):
            print("You cannot walk any further, you are way too tired. You need some sleep!")	
            return stamina
@@ -314,7 +317,6 @@ def execute_command_stamina(command, stamina):
         else:
             print("Go where?")
             return stamina
-
     elif command[0] == "rest":
         stamina = execute_rest(stamina)
         return stamina
@@ -329,7 +331,11 @@ def execute_command(command):
     #This function will check if user types in go, take or drop and will call appropriate execute functions.
     #Not sure if this line was necessary as we will be using 0 length commands. if 0 == len(command):
         #return
-    if command[0] == "take":
+
+    if len(command) == 0:
+        pass
+    
+    elif command[0] == "take":
         if len(command) > 1:
             execute_take(command[1])
         else:
@@ -346,7 +352,8 @@ def execute_command(command):
             execute_ask(command[1])
         else:
             print("Ask who?")
-        
+    elif command[0] == "":
+        pass
     elif command[0] == "pin":
         if len(command) > 1:
             execute_pin(command[1])
@@ -359,7 +366,7 @@ def execute_command(command):
     elif command[0] == "inventory":
         execute_inventory()
 
-    elif command[0] == "nothing":
+    elif command[0] == "":
         pass
 
     elif command[0] == "search":
@@ -419,14 +426,26 @@ def combat_menu(health, base_health, name, damage):
                     if randomiser() == True:
                         print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                        health = health - 1
+                        print("Enemy hit you for " + str(damage))
+                        print("Your health is " + str(stats_dictionary["Max health"]))
+                        health = health - 10
+                        print()
+                        print("You hit enemy for 10")
+                        print("Enemies health is " + str(health))
+                        print()
                     else:
                         print("You missed")
                 elif items["id"] == player_input and player_input == "pistol":
                     if randomiser() == True:
                         print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                        health = health - 2
+                        print("Enemy hit you for " + str(damage))
+                        print("Your health is " + str(stats_dictionary["Max health"]))
+                        health = health - 20
+                        print()
+                        print("You hit enemy for 20")
+                        print("Enemies health is " + str(health))
+                        print()
                     else:
                         print("You missed")
                 elif items["id"] == player_input and player_input == "stun":
@@ -434,7 +453,13 @@ def combat_menu(health, base_health, name, damage):
                     if randomiser() == True:
                         print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                        health = health - 4
+                        print("Enemy hit you for " + str(damage))
+                        print("Your health is " + str(stats_dictionary["Max health"]))
+                        health = health - 40
+                        print()
+                        print("You hit enemy for 40")
+                        print("Enemies health is " + str(health))
+                        print()
                     else:
                         print("You missed")
         elif health > 0 and health < base_health:
@@ -450,14 +475,26 @@ def combat_menu(health, base_health, name, damage):
                     if randomiser() == True:
                         print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                        health = health - 1
+                        print("Enemy hit you for " + str(damage))
+                        print("Your health is " + str(stats_dictionary["Max health"]))
+                        health = health - 10
+                        print()
+                        print("You hit enemy for 10")
+                        print("Enemies health is " + str(health))
+                        print()
                     else:
                         print("You missed")
                 elif items["id"] == player_input and player_input == "pistol":
                     if randomiser() == True:
                         print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                        health = health - 2
+                        print("Enemy hit you for " + str(damage))
+                        print("Your health is " + str(stats_dictionary["Max health"]))
+                        health = health - 20
+                        print()
+                        print("You hit enemy for 20")
+                        print("Enemies health is " + str(health))
+                        print()
                     else:
                         print("You missed")
                 elif items["id"] == player_input and player_input == "stun":
@@ -465,11 +502,17 @@ def combat_menu(health, base_health, name, damage):
                     if randomiser() == True:
                         print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                        health = health - 4
+                        print("Enemy hit you for " + str(damage))
+                        print("Your health is " + str(stats_dictionary["Max health"]))
+                        health = health - 40
+                        print()
+                        print("You hit enemy for 40")
+                        print("Enemies health is " + str(health))
+                        print()
                     else:
                         print("You missed")
     if health < 1:
-        print("you have killed the", name,"anything the", name, "had would have dropped on the floor")
+        print("you have killed the", name,"anything the", name, "had would have dropped on the floor\n")
         current_room["enemies"] = []
 
 def move(exits, direction):
