@@ -90,6 +90,29 @@ def print_menu(exits, room_items, inv_items, room_people, room_enemies):
     print("What do you want to do?")
 
 
+
+def cell_door_unlock():
+    import time
+    global prison_cell_unlock
+    
+    sec = 0
+    if items_hair_pin in inventory:
+        print("------You are attempting to unlock the door with the hair pin")
+        while sec < 3:
+            sec+=1
+            print("..")
+            time.sleep(1)
+            if sec == 3:
+                prison_cell_unlock = True
+                print("You unlocked cell")
+                inventory.remove(items_hair_pin)
+                break
+   
+    else:
+        print("The cell door is locked")
+
+
+
 def is_valid_exit(exits, chosen_exit):
 
     #Reception door condition
@@ -133,6 +156,10 @@ def execute_go(direction, stamina):
     global current_room
     global security_room_pass
     #Lobby check
+    
+    if current_room == rooms["Cell1"] and prison_cell_unlock == False:
+        cell_door_unlock()
+    
     if current_room == rooms["Lobby1"]:
         security_room_pass = True  
     
@@ -142,10 +169,13 @@ def execute_go(direction, stamina):
             print("You cannot travel on the train, please buy a train ticket.")
         elif (room_elevator["allowed"] == False and direction == "up" and current_room == rooms["Elevator"]):	
            print("To use the elevator, you need to enter a pin number.")
+        elif current_room == rooms["Control1"] and items_b1_keycard in inventory:
+            inventory.remove(items_b1_keycard)
+        
         else:
             current_room = move(exits, direction)
             stamina = stamina - 1
-        
+    
     else:
         print("You cannot go there.")
     return stamina

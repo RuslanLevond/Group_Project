@@ -15,7 +15,7 @@ you will find the security room. The cell doors are facing north.""",
 
     "exits": {"north":"Securityroom1"},
 
-    "items":[],
+    "items":[items_hair_pin],
 
     "enemies":[],
 
@@ -144,7 +144,8 @@ control_room = {
     "description":
     """
 This is the control room. You have unlocked the front doors in recepetion.
-To go back to the lobby go north.""",
+To go back to the lobby go north. However, your keycard got stuck and you
+won't be able to use it again to enter the control room.""",
 
     "exits": {"north": "Lobby1"},
 

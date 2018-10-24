@@ -7,7 +7,7 @@ from Game import *
 
 current_room = rooms["Cell1"]
 security_room_pass = False 
-
+prison_cell_unlock = False
 attribute_dictionary = {
     "Strength" : 0,
     "Intelligence" : 0,

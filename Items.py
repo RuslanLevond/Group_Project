@@ -143,17 +143,19 @@ items_rope = {
 ##
 ##    "damage" : 0
 ##    }
-##items_hair_pin = {
-##    "id" : "pin",
-##
-##    "description" : "a hair pin that if you are smart enough you make be able to use to open the cell door",
-##
-##    "name" : "a hair pin",
-##
-##    "mass" : 0,
-##
-##    "damage" : 0
-##    }
+items_hair_pin = {
+    
+    "id" : "pin",
+
+    "description" : "a hair pin that if you are smart enough you make be able to use to open the cell door",
+
+    "name" : "a hair pin",
+
+    "mass" : 0,
+
+    "damage" : 0
+    }
+
 items_serum_207 = {
     "id" : "serum",
 
