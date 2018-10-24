@@ -4,6 +4,7 @@ from Items import *
 from Gameparser import *
 from People import *
 from Enemies import *
+from Ascii import *
 import random
 import time
 def list_of_items(items):
@@ -157,8 +158,6 @@ def execute_go(direction, stamina):
     global security_room_pass
     #Lobby check
     
-    if current_room == rooms["Cell1"] and prison_cell_unlock == False:
-        cell_door_unlock()
     
     if current_room == rooms["Lobby1"]:
         security_room_pass = True  
@@ -171,6 +170,9 @@ def execute_go(direction, stamina):
            print("To use the elevator, you need to enter a pin number.")
         elif current_room == rooms["Control1"] and items_b1_keycard in inventory:
             inventory.remove(items_b1_keycard)
+        elif current_room == rooms["Cell1"] and prison_cell_unlock == False:
+            cell_door_unlock()
+            
         
         else:
             current_room = move(exits, direction)
@@ -568,7 +570,8 @@ def randomiser():
 def main():
     player_attributes()
     body_type()	
-    update_stats()	
+    update_stats()
+    print_logo()
     stamina = stats_dictionary["Stamina"]
     # Main game loop
     while True:
@@ -579,7 +582,7 @@ def main():
         if current_room["enemies"] != []:
             combat_menu(current_room["enemies"][0]["health"], current_room["enemies"][0]["base_health"], current_room["enemies"][0]["name"], current_room["enemies"][0]["damage"])
         if stats_dictionary["Max health"] <= 0:
-            print("YOU HAVE DIED")
+            print_lose()
             break
         # Show the menu with possible actions and ask the player
         command = menu(current_room["exits"], current_room["items"], inventory, current_room["people"], current_room["enemies"])
@@ -588,7 +591,7 @@ def main():
         game_over = False
         for items in inventory:
             if (items == items_serum_207):
-                print("COMPLETED IT MATE")
+                print_win()
                 game_over = True
                 break
         if game_over == True:
