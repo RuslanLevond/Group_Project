@@ -454,7 +454,7 @@ def combat_menu(health, base_health, name, damage):
         if health == base_health:
             print("The", name, "is about to attack you and the only way to get past will be to defeat him!")
             for items in inventory:
-                print ("use", items["id"].upper(), "to attack the", name, "first")
+                print ("USE", items["id"].upper(), "to attack the", name, "first.")
             print("what would you like to do?")
             Player_Input = input(" ")
             Player_Input = normalise_input(Player_Input)
@@ -503,7 +503,7 @@ def combat_menu(health, base_health, name, damage):
         elif health > 0 and health < base_health:
             print("The", name, "is still alive and about to attack again, what will you do?")
             for items in inventory:
-                print ("USE", items["id"].upper(), "to attack the", name, "first")
+                print ("USE", items["id"].upper(), "to attack the", name, "first.")
             print("what would you like to do?")
             Player_Input = input(" ")
             Player_Input = normalise_input(Player_Input)
@@ -576,11 +576,23 @@ def randomiser():
     else:
         return False
 
+def print_intro():
+    print("""Hello agent 21,
+you were on an important mission to retrieve a deadly serum that has fallen into the wrong hands.
+When trying to infiltrate the building, you were captured and for weeks people have not known where you have been.
+In this time, the criminal organisation known as Armour have been able to develop a way to distribute the serum into the water stream.
+They are moving to the new facility where the operation will begin,
+you will need to stop them before this is possible, but to hide all evidence of their criminal activities and keep the police busy,
+they have set a fire in the building that you are in.
+Quick, you need to get out of the building by any means possible,
+save yourself and save the world. You must get serum207 back before it takes thousands of innocent lives.""")
+
 def main():
     player_attributes()
     body_type()	
     update_stats()
     print_logo()
+    print_intro()
     stamina = stats_dictionary["Stamina"]
     # Main game loop
     while True:
