@@ -91,6 +91,17 @@ def print_menu(exits, room_items, inv_items, room_people, room_enemies):
 
 
 def is_valid_exit(exits, chosen_exit):
+
+    #Reception door condition
+    if security_room_pass == False and current_room == rooms["Reception1"] and chosen_exit == "north":
+        return False
+
+    #Control room condition
+    if items_b1_keycard not in inventory and current_room == rooms["Lobby1"] and chosen_exit == "south":
+        return False
+    #Rope condition
+    if items_rope not in inventory and current_room == rooms["Roof1"] and chosen_exit == "north":
+        return False 
     #This function checks if the exit the player has inputted is valid.
     return chosen_exit in exits
 
@@ -120,6 +131,15 @@ def mass_kg():
 def execute_go(direction, stamina):
     #This function calls is_valid_exit function which would check if the exit is valid and then if the exit is valid, it would update the current room.
     global current_room
+    global security_room_pass
+    check = 0
+    #Lobby check
+    if current_room == rooms["Lobby1"]:
+        security_room_pass = True
+    if current_room == rooms["Roof1"]:
+        check = 1
+        
+    
     exits = current_room["exits"]
     if is_valid_exit(exits, direction) == True:
         if (items_train_ticket["acquired"] == False and current_room["name"] == "the NORTH train station" and direction == "south"):
@@ -129,6 +149,7 @@ def execute_go(direction, stamina):
         else:
             current_room = move(exits, direction)
             stamina = stamina - 1
+        
     else:
         print("You cannot go there.")
     return stamina

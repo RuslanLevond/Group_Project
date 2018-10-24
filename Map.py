@@ -124,7 +124,8 @@ lobby_room = {
 
     "description":
     """ 
-You are at the lobby on floor one. To enter the control room go south.
+You are at the lobby on floor one. Go south to enter the control room.
+You wont be able to enter unless you have the key card.
 To get back to the staircase go west.""",
 
     "exits": {"west":"Stairsthree1", "south": "Control1"},
@@ -142,8 +143,8 @@ control_room = {
 
     "description":
     """
-This is the control room. After you leave the control room you can
-exit the building from reception. To go back to the lobby go north.""",
+This is the control room. You have unlocked the front doors in recepetion.
+To go back to the lobby go north.""",
 
     "exits": {"north": "Lobby1"},
 
@@ -163,8 +164,8 @@ roof_floor = {
 
     "description":
     """ 
-You are on the roof. Its too high to jump down. But there may be another way
-to get down. To go back to the first floor go down.""",
+You are on the roof. Its too high to jump down. Take the rope to get down.
+To go back to the first floor go down.""",
 
     "exits": {"down": "Stairsthree1", "north": "Building1"},
 
@@ -195,7 +196,7 @@ Now you need to go after your targets. You have two safe choices from the place 
 You can either go east to the garden or go west to an abandoned building
 to avoid dealing with police, get some rest and pick up items.""",
     
-    "exits": {"inside": "Reception1", "east": "Garden", "west": "Abandoned"},
+    "exits": {"east": "Garden", "west": "Abandoned"},
 
     "items": [],
 

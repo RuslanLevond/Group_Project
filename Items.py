@@ -100,11 +100,11 @@ items_train_ticket = {
     "acquired" : False
     }
 items_b1_keycard = {
-    "id" : "keycard1",
+    "id" : "keycard",
 
     "description" : "A key card that will give you access to control room.",
 
-    "name" : "A keycard for the second building",
+    "name" : "A keycard for control room",
 
     "mass" : 0,
 
