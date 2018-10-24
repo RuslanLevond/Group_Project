@@ -73,13 +73,17 @@ def print_menu(exits, room_items, inv_items, room_people, room_enemies):
     for q in room_people:
         print("ASK " + q["id"].upper() + " to ask the " + q["name"] + " if they can help"
             " you find your target.")
-    print("SEARCH PLACE to search for items around.")
+    if(current_room["items"] != []):
+        print("SEARCH PLACE to search for items around.")
     if inventory != []:
-        print ("SHOW INVENTORY")
+        print ("SHOW INVENTORY to see your inventory.")
     if room_enemies == []:
-        print("REST")
-    if(current_room == rooms["Station1"]):
+        print("REST to sleep and regain your stamina.")
+    if(current_room == rooms["Station1"] and items_train_ticket["acquired"] == False):
         print("BUY to buy a train ticket.")
+    if(current_room == rooms["Elevator"]):	
+       print("PIN to enter a pin number to use the elevator.")
+       
     print("STATS to check your character's stats.")
     
     print("What do you want to do?")
@@ -112,19 +116,23 @@ def mass_kg():
 #     else:
 #         return False
 
-def execute_go(direction):
+def execute_go(direction, stamina):
     #This function calls is_valid_exit function which would check if the exit is valid and then if the exit is valid, it would update the current room.
     global current_room
     exits = current_room["exits"]
     if is_valid_exit(exits, direction) == True:
-        if (items_train_ticket["aquired"] == False and current_room["name"] == "the NORTH train station"):
-            print("You cannot travel this direction!")
+        if (items_train_ticket["acquired"] == False and current_room["name"] == "the NORTH train station" and direction == "south"):
+            print("You cannot travel on the train, please buy a train ticket.")
+        elif (room_elevator["allowed"] == False and direction == "up" and current_room == rooms["Elevator"]):	
+           print("To use the elevator, you need to enter a pin number.")
         else:
             current_room = move(exits, direction)
+            stamina = stamina - 1
+            return stamina
     else:
         print("You cannot go there.")
 
-def execute_ask(people_id):
+def execute_ask(people_id, stamina):
     o = current_room["people"]
     if o == []:
         print("There is nobody here")
@@ -142,9 +150,10 @@ def execute_ask(people_id):
                 break
     if people_id != l["id"]:
         print("You cannot ask this person!")
+    return stamina
 
 
-def execute_take(item_id):
+def execute_take(item_id, stamina):
     #This function will check if the item is in the room and will put it in the player's inventory only in the case if the weight is ok and the item is in the room.
     # item_succeed = False
     # for item in current_room["items"]:
@@ -159,23 +168,36 @@ def execute_take(item_id):
     # elif(weight_ok(item_id) == False):
     #     print("You are carrying too much.")
 
-    m = current_room["items"]
-    if m == []:
+    items_in_room = current_room["items"]
+    if items_in_room == []:
         print("There are no items left to take in this room.")
     else:
-        for n in m:
-            if n["id"] == item_id:
-                inventory.append(n)
-                m.remove(n)
+        for items in items_in_room:
+            if items["id"] == item_id:
+                inventory.append(items)
+                items_in_room.remove(items)
+                if (items["id"] == "strength"):
+                    attribute_dictionary["Strength"] = attribute_dictionary["Strength"] + 1
+                    stats_dictionary["Max health"] = stats_dictionary["Max health"] + 1 
+                    print("Your strength attributes has been increased.")
+                elif (items["id"] == "intelligence"):
+                    attribute_dictionary["Intelligence"] = attribute_dictionary["Intelligence"] + 1
+                    stats_dictionary["Accuracy"] = stats_dictionary["Accuracy"] + 0.1
+                    print("Your intelligence attributes has been increased.")
+                elif (items["id"] == "agility"):
+                    attribute_dictionary["Agility"] = attribute_dictionary["Agility"] + 1
+                    stats_dictionary["Stamina"] = stats_dictionary["Stamina"] + 1
+                    print("Your agility attributes has been increased.")
                 break
-        if n["id"] != item_id:
+        if items["id"] != item_id:
             print("You cannot take that.")
         if mass_kg() == False:
-            inventory.remove(n)
-            m.append(n)
+            inventory.remove(items)
+            items_in_room.append(items)
+    return stamina
     
 
-def execute_drop(item_id):
+def execute_drop(item_id, stamina):
     #This function works just like execute_take function, it will check if the item is in inventory and then drop it into the room's items.
     # item_succeed = False
     # for item in inventory:
@@ -198,8 +220,9 @@ def execute_drop(item_id):
                 break
         if r["id"] != item_id:
             print("You cannot drop that.")
+    return stamina
 
-def execute_stats(attribute):
+def execute_stats(attribute, stamina):
     #This function will show current player's stats, all of the attributes they have picked. The attribute parameter is going to be attribute_dictionary.
     print()
     print("Your current attributes are:")
@@ -210,65 +233,70 @@ def execute_stats(attribute):
     print("Your current stats are:")
     print("Max health - " + str(stats_dictionary["Max health"]))
     print("Accuracy (chance of hitting an enemy)- " + str(stats_dictionary["Accuracy"]))
-    print("Stamina (if it hits 0, you are not able to enter any rooms. To regain stamina, you will need to rest.)- " + str(stats_dictionary["Stamina"]))
+    print("Stamina (if it hits 0, you are not able to enter any rooms. To regain stamina, you will need to rest.)- " + str(stamina))
+    return stamina
 
-def execute_buy():
+def execute_buy(stamina):
     #This function will be used in the train station to buy a ticket for the train. The player can go to the train station two only with the ticket.
     for inv in inventory:
         if (inv["id"] == "ticket" and current_room == rooms["Station1"]):
             print("You cannot buy anymore tickets.")
-    if (current_room == rooms["Station1"] and items_train_ticket["aquired"] == False):
+    if (current_room == rooms["Station1"] and items_train_ticket["acquired"] == False):
         print("You bought a ticket for the train. Now you can go on the train.")
         inventory.append(items_train_ticket)
-        items_train_ticket["aquired"] = True
+        items_train_ticket["acquired"] = True
     elif (current_room != rooms["Station1"]):
         print("You cannot buy in this room.")
+    return stamina
 
-def execute_pin(user_pin):
+def execute_pin(user_pin, stamina):
     #This function will check if the user has entered a valid pin number for the elevator. If not, then the enter_pin function will be executed where the player will be asked to enter a pin number again. Otherwise, the player can use the elevator.
-    #Here are two new variables which would need to be declared. elevator_pin variable will be used as a reference to the user's pin, it will check if they have entered a correct pin. Also, use_elevator variable which will be used to allow the users to use the elevator or not.
+    #Here is a new variable which is elevator_pin variable, it will be used as a reference to the user's pin, it will check if they have entered a correct pin. Elevator pin is - 179535
     print("You are entering a pin number to use the elevator...")
-    if(user_pin == elevator_pin):
+    if(current_room == rooms["Elevator"] and user_pin == elevator_pin):
+        print("You are entering a pin number to use the elevator...")
+        print()
         print("You have entered correct pin number.")
-        use_elevator = True
-    else:
+        print("Now you can use the elevator.")
+        room_elevator["allowed"] = True
+    elif(current_room == rooms["Elevator"] and user_pin != elevator_pin):
+        print("You are entering a pin number to use the elevator...")
+        print()
         print("You have entered a wrong pin number, please enter a correct pin number")
-        enter_pin()
-        
-def enter_pin():
-    #This function will execute only if the current room is elevator, it will ask the player to enter a pin number. It will return a pin number the user has entered.
-    #The code to check if the current room is elevator. if(current_room == rooms["room_elevator"])
-    #This function will need to be checked as an input for the validation.
-    pin = input("Please enter a pin number to use the elevator: ")
-    return pin
+    else:
+        pass
+    return stamina
 
-def execute_rest(max_rest):
+def execute_rest(stamina):
     #This function will regain player's stamina by resting. The player will not be able to rest if there is an enemy in the room. It will put player's stamina back to the default which is effected by the attributes using updated_stamina variable as max_rest parameter which is declared in the Player.py
     if (current_room["enemies"] == []):
         print("You are resting...")
-        stats_dictionary["Stamina"] = max_rest
+        stamina = stats_dictionary["Stamina"]
+        print("Your current Stamina: " + str(stamina))
         print("You have rested, now you stamina is back to usual.")
-        print("Stamina : " + str(stats_dictionary["Stamina"]))
     else:
         print("You cannot rest here, there is an enemy nearby.")
+    return stamina
 
-def execute_inventory():
+def execute_inventory(stamina):
     print_inventory_items(inventory)
     print ("You can:")
     for item in inventory:
         print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
     print ("DO NOTHING")
     command = inventory_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
-    execute_command(command)
+    execute_command(command, stamina)
+    return stamina
 
-def execute_search(room):
+def execute_search(room, stamina):
     print_room_items(current_room)
     print ("You can:")
     for i in current_room["items"]:
         print("TAKE " + i["id"].upper() + " to take " + i["name"] + ".")
     print ("DO NOTHING")
     command = search_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
-    execute_command(command)
+    execute_command(command, stamina)
+    return stamina
 
 # list_items = list_of_items(room["items"])
 #     if(list_items == ""):
@@ -276,61 +304,81 @@ def execute_search(room):
 #     else:
 #         print("There is " + list_items + " here.\n")
 
-def execute_command(command):
+def execute_command(command, stamina):
     #This function will check if user types in go, take or drop and will call appropriate execute functions.
     #Not sure if this line was necessary as we will be using 0 length commands. if 0 == len(command):
         #return
 
     if command[0] == "go":
-        if len(command) > 1:
-            execute_go(command[1])
+        if(stamina == 0):
+           print("You cannot walk any further, you are way too tired. You need some sleep!")	
+           return stamina
+        elif len(command) > 1:
+            stamina = execute_go(command[1], stamina)
+            return stamina
         else:
             print("Go where?")
+            return stamina
 
     elif command[0] == "take":
         if len(command) > 1:
-            execute_take(command[1])
+            execute_take(command[1], stamina)
+            return stamina
         else:
             print("Take what?")
+            return stamina
 
     elif command[0] == "drop":
         if len(command) > 1:
             execute_drop(command[1])
+            return stamina
         else:
             print("Drop what?")
+            return stamina
 
     elif command[0] == "ask":
         if len(command) > 1:
             execute_ask(command[1])
+            return stamina
         else:
             print("Ask who?")
+            return stamina
 
     elif command[0] == "stats":
-        execute_stats(attribute_dictionary)
+        stamina = execute_stats(attribute_dictionary, stamina)
+        return stamina
         
     elif command[0] == "pin":
         if len(command) > 1:
             execute_pin(command[1])
+            return stamina
         else:
             print("Please enter a pin number!")
+            return stamina
 
     elif command[0] == "buy":
         execute_buy()
+        return stamina
 
     elif command[0] == "rest":
-        execute_rest(stats_dictionary["Stamina"])
+        stamina = execute_rest(stamina)
+        return stamina
 
     elif command[0] == "inventory":
-        execute_inventory()
+        execute_inventory(stamina)
+        return stamina
 
     elif command[0] == "nothing":
         pass
+        return stamina
 
     elif command[0] == "search":
-    	execute_search(command[1])
+    	execute_search(command[1], stamina)
+    	return stamina
 
     else:
     	print("You can't do that!")
+    	return stamina
 
 def menu(exits, room_items, inv_items, room_people, room_enemies):
     #This function will display the main menu, read player's input, normalise it and then return normalised user's input.
@@ -412,11 +460,24 @@ def move(exits, direction):
     # Next room to go to
     return rooms[exits[direction]]
 
+def check_ticket():	
+   try:	
+       if(current_room == rooms["Station2"]):	
+           inventory.remove(items_train_ticket)	
+   except:	
+        pass	
+def stamina(stamina):	
+   current_stamina = stamina - 1	
+   return current_stamina
+
 def main():
+    player_attributes()
+    body_type()	
+    update_stats()	
+    stamina = stats_dictionary["Stamina"]
     # Main game loop
     while True:
-        #if(player_win() == True):
-            #break
+        check_ticket()
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_room_people(current_room)
@@ -427,7 +488,7 @@ def main():
         command = menu(current_room["exits"], current_room["items"], inventory, current_room["people"], current_room["enemies"])
 
         # Execute the player's command
-        execute_command(command)
+        stamina = execute_command(command,stamina)
 
 if __name__ == "__main__":
     main()

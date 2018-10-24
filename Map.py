@@ -100,9 +100,9 @@ staircase go west.""",
 
     "exits": {"north": "Building1", "west":"Stairstwo1"},
 
-    "furniture":{"table":[items_strength_book]}, 
+    "furniture":{}, 
 
-    "items": [],
+    "items": [items_strength_book, items_intelligence_book, items_agility_book],
 
     "enemies": [],
 
@@ -332,7 +332,7 @@ to the north station. You can either find a ticket to get on the train
 and go back to the north train station
 or you can leave the train station from one of the exits, east or west.""",
 
-    "exits": {"north": "Station1", "west": "Centre", "east": "Parking"},
+    "exits": {"west": "Centre", "east": "Parking"},
 
     "items": [],
 
@@ -543,7 +543,9 @@ stairs will take you to the 2nd Floor. """,
 
     "items": [],
 
-    "enemies" : []
+    "enemies" : [],
+    
+    "people": []
 }
 
 room_main = {
@@ -558,7 +560,9 @@ elevator""",
 
     "items": [],
  
-    "enemies" : []
+    "enemies" : [],
+
+    "people": []
     }
 room_security = {
     "name": "Security Room",
@@ -596,13 +600,15 @@ room_elevator = {
     """You press the button on the elevator. It opens, you enter, but it needs a code.
 The main room is to the east""",
 
-    "exits": {"east": "Main Room"}, # Players will use pin_execute function here which will teleport the player into main office.
+    "exits": {"east": "Main Room", "up": "Main Office"}, # Players will use pin_execute function here which will teleport the player into main office.
 
     "items": [items_strength_book],
 
     "enemies" : [],
 
-    "people": []
+    "people": [],
+    
+    "allowed": False
 }
 
 room_main_office = {

@@ -19,6 +19,7 @@ stats_dictionary = {
     "Stamina" : 5
     }
 inventory = []
+elevator_pin = "179535"
 #This function is a creation menu, from here the player would be able to use their first 3 skill points on increasing their specific attributes.
 def player_attributes():
     print("Here is the character creation menu, from here you can choose character's starter attributes.\nThrough out the game, you can find skill books which would increase your character's attributes.\nThey are strength, intelligence and agility.\n")
@@ -121,19 +122,19 @@ def body_type():
 #The update function will update player's statistics depending on the attribute.
 def update_attributes(attribute):
     if(attribute == "Strength"):
-        stats_dictionary["Max health"] = stats_dictionary["Max health"] + 10
+        stats_dictionary["Max health"] = stats_dictionary["Max health"] + 1
     elif(attribute == "Intelligence"):
         stats_dictionary["Accuracy"] = stats_dictionary["Accuracy"] + 0.10
     elif(attribute == "Agility"):
         stats_dictionary["Stamina"] = stats_dictionary["Stamina"] + 1
 #This for loop would update all of the player's statistics using what skill points the player has chosen in player attributes and body type functions. 
-for attribute in attribute_dictionary:
-    if (attribute == "Strength" or attribute == "Intelligence" or attribute == "Agility"):
-        counter = 0
-        while True:
-            if(counter == attribute_dictionary[attribute]):
-               break
-            update_attributes(attribute)
-            counter = counter + 1
+def update_stats():
+    for attribute in attribute_dictionary:
+        if (attribute == "Strength" or attribute == "Intelligence" or attribute == "Agility"):
+            counter = 0
+            while True:
+                if(counter == attribute_dictionary[attribute]):
+                   break
+                update_attributes(attribute)
+                counter = counter + 1
             
-updated_stamina = stats_dictionary["Stamina"]
