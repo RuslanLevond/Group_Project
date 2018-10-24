@@ -554,7 +554,7 @@ room_security = {
 
     "exits": {"east": "Main Room"},
 
-    "items": [items_pistol], # They will drop if the kill the enemy.
+    "items": [], # They will drop if the kill the enemy.
 
     "enemies" : [enemy_guard_security],
 
@@ -596,7 +596,8 @@ room_main_office = {
     "name": "Main Office",
 
     "description":
-    """You walk out of the elevator into the the Main Office. You see the *BIGBOSS name* and
+    """You walk out of the elevator into the the Main Office. You see the BOSS 
+(The man who gave the order for the building you were trapped earliear at, to be bombed) and
 wonder how you are going to kill him and get Serum 207""",
 
     "exits": {},
