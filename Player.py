@@ -6,6 +6,7 @@ from Gameparser import *
 from Game import *
 
 current_room = rooms["Cell1"]
+global security_room_pass
 
 attribute_dictionary = {
     "Strength" : 0,

@@ -99,17 +99,17 @@ items_train_ticket = {
 
     "acquired" : False
     }
-##items_b2_keycard = {
-##    "id" : "keycard2",
-##
-##    "description" : "A key card that will give you access to all of the second buildings first floor.",
-##
-##    "name" : "A keycard for the second building",
-##
-##    "mass" : 0,
-##
-##    "damage" : 0
-##    }
+items_b1_keycard = {
+    "id" : "keycard1",
+
+    "description" : "A key card that will give you access to control room.",
+
+    "name" : "A keycard for the second building",
+
+    "mass" : 0,
+
+    "damage" : 0
+    }
 ##items_ammunition = {
 ##    "id" : "ammo",
 ##

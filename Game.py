@@ -5,6 +5,7 @@ from Gameparser import *
 from People import *
 from Enemies import *
 import random
+import time
 def list_of_items(items):
     #This function puts items into the list.
     string = ''
@@ -73,8 +74,8 @@ def print_menu(exits, room_items, inv_items, room_people, room_enemies):
     for q in room_people:
         print("ASK " + q["id"].upper() + " to ask the " + q["name"] + " if they can help"
             " you find your target.")
-    if(current_room["items"] != []):
-        print("SEARCH PLACE to search for items around.")
+ 
+    print("SEARCH PLACE to search for items around.")
     if inventory != []:
         print ("SHOW INVENTORY to see your inventory.")
     if room_enemies == []:
@@ -235,14 +236,12 @@ def execute_pin(user_pin):
     #Here is a new variable which is elevator_pin variable, it will be used as a reference to the user's pin, it will check if they have entered a correct pin. Elevator pin is - 179535
     print("You are entering a pin number to use the elevator...")
     if(current_room == rooms["Elevator"] and user_pin == elevator_pin):
-        print("You are entering a pin number to use the elevator...")
-        print()
+        
         print("You have entered correct pin number.")
         print("Now you can use the elevator.")
         room_elevator["allowed"] = True
     elif(current_room == rooms["Elevator"] and user_pin != elevator_pin):
-        print("You are entering a pin number to use the elevator...")
-        print()
+        
         print("You have entered a wrong pin number, please enter a correct pin number")
     else:
         pass
@@ -250,10 +249,16 @@ def execute_pin(user_pin):
 def execute_rest(stamina):
     #This function will regain player's stamina by resting. The player will not be able to rest if there is an enemy in the room. It will put player's stamina back to the default which is effected by the attributes using updated_stamina variable as max_rest parameter which is declared in the Player.py
     if (current_room["enemies"] == []):
+        sec = 0
         print("You are resting...")
-        stamina = stats_dictionary["Stamina"]
-        print("Your current Stamina: " + str(stamina))
-        print("You have rested, now you stamina is back to usual.")
+        while sec < 5:
+            sec += 1
+            time.sleep(1)
+            print("...")
+            if(sec == 5):
+                stamina = stats_dictionary["Stamina"]
+                print("Your current Stamina: " + str(stamina))
+                print("You have rested, now you stamina is back to usual.")
     else:
         print("You cannot rest here, there is an enemy nearby.")
     return stamina

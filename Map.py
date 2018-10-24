@@ -34,7 +34,7 @@ to the west of the security room.""",
 
     "exits": {"south": "Cell1", "west": "Stairsone1"},
 
-    "items":[items_security_baton],
+    "items":[items_security_baton, items_b1_keycard],
 
     "enemies":[],
 
