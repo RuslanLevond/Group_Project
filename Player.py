@@ -5,7 +5,7 @@ from Items import *
 from Gameparser import *
 from Game import *
 
-current_room = rooms["Centre"] #Cell1
+current_room = rooms["Cell1"]
 security_room_pass = False 
 
 attribute_dictionary = {
