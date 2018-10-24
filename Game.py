@@ -179,7 +179,7 @@ def execute_take(item_id):
                     inventory.remove(items)
                 elif (items["id"] == "aid"):
                     print("Your health has been regenerated.")
-                    stats_dictionary["Max health"] = attribute_dictionary["Strength"] + 10
+                    stats_dictionary["Max health"] = attribute_dictionary["Strength"] + 8
                     inventory.remove(items)
                 elif (items["id"] == "serum"):
                     break
@@ -204,7 +204,7 @@ def execute_drop(item_id):
         if r["id"] != item_id:
             print("You cannot drop that.")
 
-def execute_stats(attribute):
+def execute_stats(attribute, stamina):
     #This function will show current player's stats, all of the attributes they have picked. The attribute parameter is going to be attribute_dictionary.
     print()
     print("Your current attributes are:")
@@ -213,9 +213,10 @@ def execute_stats(attribute):
     print("Agility - " + str(attribute["Agility"]))
     print()
     print("Your current stats are:")
-    print("Max health - " + str(stats_dictionary["Max health"]))
+    print("Health - " + str(stats_dictionary["Max health"]))
     print("Accuracy (chance of hitting an enemy)- 1/" + str(stats_dictionary["Accuracy"]))
-    print("Stamina (if it hits 0, you are not able to enter any rooms. To regain stamina, you will need to rest.)- " + str(stats_dictionary["Stamina"]))
+    print("Stamina (if it hits 0, you are not able to enter any rooms. To regain stamina, you will need to rest.)- " + str(stamina))
+    return stamina
 
 def execute_buy():
     #This function will be used in the train station to buy a ticket for the train. The player can go to the train station two only with the ticket.
@@ -291,6 +292,9 @@ def execute_command_stamina(command, stamina):
     elif command[0] == "rest":
         stamina = execute_rest(stamina)
         return stamina
+    elif command[0] == "stats":
+        stamina = execute_stats(attribute_dictionary, stamina)
+        return stamina
     else:
         execute_command(command)
         return stamina
@@ -316,9 +320,6 @@ def execute_command(command):
             execute_ask(command[1])
         else:
             print("Ask who?")
-
-    elif command[0] == "stats":
-        stamina = execute_stats(attribute_dictionary)
         
     elif command[0] == "pin":
         if len(command) > 1:
@@ -390,18 +391,22 @@ def combat_menu(health, base_health, name, damage):
             for items in inventory:
                 if items["id"] == player_input and player_input == "baton" or items["id"] == player_input and player_input == "baseball":
                     if randomiser() == True:
+                        print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
                         health = health - 1
                     else:
                         print("You missed")
                 elif items["id"] == player_input and player_input == "pistol":
                     if randomiser() == True:
+                        print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
                         health = health - 2
                     else:
                         print("You missed")
                 elif items["id"] == player_input and player_input == "stun":
+                    inventory.remove(items_stun_gun)
                     if randomiser() == True:
+                        print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
                         health = health - 4
                     else:
@@ -417,18 +422,22 @@ def combat_menu(health, base_health, name, damage):
             for items in inventory:
                 if items["id"] == player_input and player_input == "baton" or items["id"] == player_input and player_input == "baseball":
                     if randomiser() == True:
+                        print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
                         health = health - 1
                     else:
                         print("You missed")
                 elif items["id"] == player_input and player_input == "pistol":
                     if randomiser() == True:
+                        print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
                         health = health - 2
                     else:
                         print("You missed")
                 elif items["id"] == player_input and player_input == "stun":
+                    inventory.remove(items_stun_gun)
                     if randomiser() == True:
+                        print("You have hit an enemy " + "'" + name + "'")
                         stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
                         health = health - 4
                     else:
