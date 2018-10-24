@@ -5,7 +5,7 @@ from Items import *
 from Gameparser import *
 from Game import *
 
-current_room = rooms["Cell1"]
+current_room = rooms["Centre"]
 
 attribute_dictionary = {
     "Strength" : 0,
@@ -15,7 +15,7 @@ attribute_dictionary = {
 #Here all of the players stats would be stored, skill points the player have chosen would effect the character's statistics.
 stats_dictionary = {
     "Max health" : 10,
-    "Accuracy" : 0.25,
+    "Accuracy" : 8,
     "Stamina" : 5
     }
 inventory = []
@@ -124,7 +124,7 @@ def update_attributes(attribute):
     if(attribute == "Strength"):
         stats_dictionary["Max health"] = stats_dictionary["Max health"] + 1
     elif(attribute == "Intelligence"):
-        stats_dictionary["Accuracy"] = stats_dictionary["Accuracy"] + 0.10
+        stats_dictionary["Accuracy"] = stats_dictionary["Accuracy"] - 1
     elif(attribute == "Agility"):
         stats_dictionary["Stamina"] = stats_dictionary["Stamina"] + 1
 #This for loop would update all of the player's statistics using what skill points the player has chosen in player attributes and body type functions. 

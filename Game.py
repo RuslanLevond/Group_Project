@@ -4,7 +4,7 @@ from Items import *
 from Gameparser import *
 from People import *
 from Enemies import *
-
+import random
 def list_of_items(items):
     #This function puts items into the list.
     string = ''
@@ -128,11 +128,11 @@ def execute_go(direction, stamina):
         else:
             current_room = move(exits, direction)
             stamina = stamina - 1
-            return stamina
     else:
         print("You cannot go there.")
+    return stamina
 
-def execute_ask(people_id, stamina):
+def execute_ask(people_id):
     o = current_room["people"]
     if o == []:
         print("There is nobody here")
@@ -150,24 +150,10 @@ def execute_ask(people_id, stamina):
                 break
     if people_id != l["id"]:
         print("You cannot ask this person!")
-    return stamina
 
 
-def execute_take(item_id, stamina):
-    #This function will check if the item is in the room and will put it in the player's inventory only in the case if the weight is ok and the item is in the room.
-    # item_succeed = False
-    # for item in current_room["items"]:
-    #     if(item["id"] == item_id):
-    #         item_succeed = True
-    # if(item_succeed and weight_ok(item_id) == True):
-    #     items_id = items[item_id]
-    #     inventory.append(items_id)
-    #     current_room["items"].remove(items_id)
-    # elif(item_succeed == False):
-    #     print("You cannot take that.")
-    # elif(weight_ok(item_id) == False):
-    #     print("You are carrying too much.")
-
+def execute_take(item_id):
+    #This function will check if the item is in the room and will put it in the player's inventory only in the case if the weight is ok and the item is in the room
     items_in_room = current_room["items"]
     if items_in_room == []:
         print("There are no items left to take in this room.")
@@ -180,36 +166,33 @@ def execute_take(item_id, stamina):
                     attribute_dictionary["Strength"] = attribute_dictionary["Strength"] + 1
                     stats_dictionary["Max health"] = stats_dictionary["Max health"] + 1 
                     print("Your strength attributes has been increased.")
+                    inventory.remove(items)
                 elif (items["id"] == "intelligence"):
                     attribute_dictionary["Intelligence"] = attribute_dictionary["Intelligence"] + 1
-                    stats_dictionary["Accuracy"] = stats_dictionary["Accuracy"] + 0.1
+                    stats_dictionary["Accuracy"] = stats_dictionary["Accuracy"] - 1
                     print("Your intelligence attributes has been increased.")
+                    inventory.remove(items)
                 elif (items["id"] == "agility"):
                     attribute_dictionary["Agility"] = attribute_dictionary["Agility"] + 1
                     stats_dictionary["Stamina"] = stats_dictionary["Stamina"] + 1
                     print("Your agility attributes has been increased.")
+                    inventory.remove(items)
+                elif (items["id"] == "aid"):
+                    print("Your health has been regenerated.")
+                    stats_dictionary["Max health"] = attribute_dictionary["Strength"] + 10
+                    inventory.remove(items)
+                elif (items["id"] == "serum"):
+                    break
                 break
         if items["id"] != item_id:
             print("You cannot take that.")
         if mass_kg() == False:
             inventory.remove(items)
             items_in_room.append(items)
-    return stamina
     
 
-def execute_drop(item_id, stamina):
+def execute_drop(item_id):
     #This function works just like execute_take function, it will check if the item is in inventory and then drop it into the room's items.
-    # item_succeed = False
-    # for item in inventory:
-    #     if(item["id"] == item_id):
-    #         item_succeed = True
-    # if(item_succeed):
-    #     items_id = items[item_id]
-    #     current_room["items"].append(items_id)
-    #     inventory.remove(items_id)
-    # else:
-    #     print("You cannot drop that.")
-
     if inventory == []:
         print("You don't have any items.")
     else:
@@ -220,9 +203,8 @@ def execute_drop(item_id, stamina):
                 break
         if r["id"] != item_id:
             print("You cannot drop that.")
-    return stamina
 
-def execute_stats(attribute, stamina):
+def execute_stats(attribute):
     #This function will show current player's stats, all of the attributes they have picked. The attribute parameter is going to be attribute_dictionary.
     print()
     print("Your current attributes are:")
@@ -232,11 +214,10 @@ def execute_stats(attribute, stamina):
     print()
     print("Your current stats are:")
     print("Max health - " + str(stats_dictionary["Max health"]))
-    print("Accuracy (chance of hitting an enemy)- " + str(stats_dictionary["Accuracy"]))
-    print("Stamina (if it hits 0, you are not able to enter any rooms. To regain stamina, you will need to rest.)- " + str(stamina))
-    return stamina
+    print("Accuracy (chance of hitting an enemy)- 1/" + str(stats_dictionary["Accuracy"]))
+    print("Stamina (if it hits 0, you are not able to enter any rooms. To regain stamina, you will need to rest.)- " + str(stats_dictionary["Stamina"]))
 
-def execute_buy(stamina):
+def execute_buy():
     #This function will be used in the train station to buy a ticket for the train. The player can go to the train station two only with the ticket.
     for inv in inventory:
         if (inv["id"] == "ticket" and current_room == rooms["Station1"]):
@@ -247,9 +228,8 @@ def execute_buy(stamina):
         items_train_ticket["acquired"] = True
     elif (current_room != rooms["Station1"]):
         print("You cannot buy in this room.")
-    return stamina
 
-def execute_pin(user_pin, stamina):
+def execute_pin(user_pin):
     #This function will check if the user has entered a valid pin number for the elevator. If not, then the enter_pin function will be executed where the player will be asked to enter a pin number again. Otherwise, the player can use the elevator.
     #Here is a new variable which is elevator_pin variable, it will be used as a reference to the user's pin, it will check if they have entered a correct pin. Elevator pin is - 179535
     print("You are entering a pin number to use the elevator...")
@@ -265,7 +245,6 @@ def execute_pin(user_pin, stamina):
         print("You have entered a wrong pin number, please enter a correct pin number")
     else:
         pass
-    return stamina
 
 def execute_rest(stamina):
     #This function will regain player's stamina by resting. The player will not be able to rest if there is an enemy in the room. It will put player's stamina back to the default which is effected by the attributes using updated_stamina variable as max_rest parameter which is declared in the Player.py
@@ -278,37 +257,26 @@ def execute_rest(stamina):
         print("You cannot rest here, there is an enemy nearby.")
     return stamina
 
-def execute_inventory(stamina):
+def execute_inventory():
     print_inventory_items(inventory)
     print ("You can:")
     for item in inventory:
         print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")
     print ("DO NOTHING")
     command = inventory_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
-    execute_command(command, stamina)
-    return stamina
+    execute_command(command)
 
-def execute_search(room, stamina):
+
+def execute_search(room):
     print_room_items(current_room)
     print ("You can:")
     for i in current_room["items"]:
         print("TAKE " + i["id"].upper() + " to take " + i["name"] + ".")
     print ("DO NOTHING")
     command = search_menu(current_room["exits"], current_room["items"], inventory, current_room["people"])
-    execute_command(command, stamina)
-    return stamina
+    execute_command(command)
 
-# list_items = list_of_items(room["items"])
-#     if(list_items == ""):
-#         pass
-#     else:
-#         print("There is " + list_items + " here.\n")
-
-def execute_command(command, stamina):
-    #This function will check if user types in go, take or drop and will call appropriate execute functions.
-    #Not sure if this line was necessary as we will be using 0 length commands. if 0 == len(command):
-        #return
-
+def execute_command_stamina(command, stamina):
     if command[0] == "go":
         if(stamina == 0):
            print("You cannot walk any further, you are way too tired. You need some sleep!")	
@@ -320,65 +288,61 @@ def execute_command(command, stamina):
             print("Go where?")
             return stamina
 
-    elif command[0] == "take":
+    elif command[0] == "rest":
+        stamina = execute_rest(stamina)
+        return stamina
+    else:
+        execute_command(command)
+        return stamina
+        
+def execute_command(command):
+    #This function will check if user types in go, take or drop and will call appropriate execute functions.
+    #Not sure if this line was necessary as we will be using 0 length commands. if 0 == len(command):
+        #return
+    if command[0] == "take":
         if len(command) > 1:
-            execute_take(command[1], stamina)
-            return stamina
+            execute_take(command[1])
         else:
             print("Take what?")
-            return stamina
 
     elif command[0] == "drop":
         if len(command) > 1:
             execute_drop(command[1])
-            return stamina
         else:
             print("Drop what?")
-            return stamina
 
     elif command[0] == "ask":
         if len(command) > 1:
             execute_ask(command[1])
-            return stamina
         else:
             print("Ask who?")
-            return stamina
 
     elif command[0] == "stats":
-        stamina = execute_stats(attribute_dictionary, stamina)
-        return stamina
+        stamina = execute_stats(attribute_dictionary)
         
     elif command[0] == "pin":
         if len(command) > 1:
             execute_pin(command[1])
-            return stamina
         else:
             print("Please enter a pin number!")
-            return stamina
 
     elif command[0] == "buy":
         execute_buy()
-        return stamina
-
-    elif command[0] == "rest":
-        stamina = execute_rest(stamina)
-        return stamina
 
     elif command[0] == "inventory":
-        execute_inventory(stamina)
-        return stamina
+        execute_inventory()
 
     elif command[0] == "nothing":
         pass
-        return stamina
 
     elif command[0] == "search":
-    	execute_search(command[1], stamina)
-    	return stamina
+        if len(command) > 1:
+            execute_search(command[1])
+        else:
+            print("Search what?")
 
     else:
     	print("You can't do that!")
-    	return stamina
 
 def menu(exits, room_items, inv_items, room_people, room_enemies):
     #This function will display the main menu, read player's input, normalise it and then return normalised user's input.
@@ -414,7 +378,7 @@ def search_menu(exits, room_items, inv_items, room_people):
 def combat_menu(health, base_health, name, damage):
     player_input = ("")
     Player_Input = []
-    while health > 0:
+    while health > 0 and stats_dictionary["Max health"] > 0: 
         if health == base_health:
             print("The", name, "is about to attack you and the only way to get past will be to defeat him!")
             for items in inventory:
@@ -425,14 +389,23 @@ def combat_menu(health, base_health, name, damage):
             player_input = "".join(Player_Input)
             for items in inventory:
                 if items["id"] == player_input and player_input == "baton" or items["id"] == player_input and player_input == "baseball":
-                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                    health = health - 1
+                    if randomiser() == True:
+                        stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                        health = health - 1
+                    else:
+                        print("You missed")
                 elif items["id"] == player_input and player_input == "pistol":
-                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                    health = health - 2
+                    if randomiser() == True:
+                        stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                        health = health - 2
+                    else:
+                        print("You missed")
                 elif items["id"] == player_input and player_input == "stun":
-                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                    health = health - 4
+                    if randomiser() == True:
+                        stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                        health = health - 4
+                    else:
+                        print("You missed")
         elif health > 0 and health < base_health:
             print("The", name, "is still alive and about to attack again, what will you do?")
             for items in inventory:
@@ -443,16 +416,26 @@ def combat_menu(health, base_health, name, damage):
             player_input = "".join(Player_Input)
             for items in inventory:
                 if items["id"] == player_input and player_input == "baton" or items["id"] == player_input and player_input == "baseball":
-                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                    health = health - 1
+                    if randomiser() == True:
+                        stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                        health = health - 1
+                    else:
+                        print("You missed")
                 elif items["id"] == player_input and player_input == "pistol":
-                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                    health = health - 2
+                    if randomiser() == True:
+                        stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                        health = health - 2
+                    else:
+                        print("You missed")
                 elif items["id"] == player_input and player_input == "stun":
-                    stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
-                    health = health - 4
-    print("you have killed the", name,"anything the", name, "had would have dropped on the floor")
-    current_room["enemies"] = []
+                    if randomiser() == True:
+                        stats_dictionary["Max health"] = stats_dictionary["Max health"] - damage
+                        health = health - 4
+                    else:
+                        print("You missed")
+    if health < 1:
+        print("you have killed the", name,"anything the", name, "had would have dropped on the floor")
+        current_room["enemies"] = []
 
 def move(exits, direction):
     #This function will return all rooms and directions from them which the player will move into.
@@ -469,6 +452,13 @@ def check_ticket():
 def stamina(stamina):	
    current_stamina = stamina - 1	
    return current_stamina
+def randomiser():
+    randoms = 0
+    randoms = random.randint(1,stats_dictionary["Accuracy"])
+    if randoms == 1:
+        return True
+    else:
+        return False
 
 def main():
     player_attributes()
@@ -483,12 +473,21 @@ def main():
         print_room_people(current_room)
         if current_room["enemies"] != []:
             combat_menu(current_room["enemies"][0]["health"], current_room["enemies"][0]["base_health"], current_room["enemies"][0]["name"], current_room["enemies"][0]["damage"])
-
+        if stats_dictionary["Max health"] <= 0:
+            print("YOU HAVE DIED")
+            break
         # Show the menu with possible actions and ask the player
         command = menu(current_room["exits"], current_room["items"], inventory, current_room["people"], current_room["enemies"])
-
         # Execute the player's command
-        stamina = execute_command(command,stamina)
+        stamina = execute_command_stamina(command,stamina)
+        game_over = False
+        for items in inventory:
+            if (items == items_serum_207):
+                print("COMPLETED IT MATE")
+                game_over = True
+                break
+        if game_over == True:
+            break
 
 if __name__ == "__main__":
     main()

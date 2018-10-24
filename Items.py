@@ -42,17 +42,17 @@ items_baseball_bat = {
 
     "damage" : 1
     }
-items_garrotte_wire = {
-    "id" : "wire",
-
-    "description" : "A wire perfect size to fit around someones neck.",
-
-    "name" : "garrotte wire",
-
-    "mass" : 0,
-
-    "damage" : 3
-    }
+##items_garrotte_wire = {
+##    "id" : "wire",
+##
+##    "description" : "A wire perfect size to fit around someones neck.",
+##
+##    "name" : "garrotte wire",
+##
+##    "mass" : 0,
+##
+##    "damage" : 3
+##    }
 items_strength_book = {
     "id" : "strength",
 
@@ -86,17 +86,6 @@ items_agility_book = {
 
     "damage" : 0
     }
-items_b1_keycard = {
-    "id" : "keycard1",
-
-    "description" : "A key card that will give you access to all of the burning buildings first floor.",
-
-    "name" : "a key card for the burning building",
-
-    "mass" : 0,
-
-    "damage" : 0
-    }
 items_train_ticket = {
     "id" : "ticket",
 
@@ -110,39 +99,28 @@ items_train_ticket = {
 
     "acquired" : False
     }
-items_b2_keycard = {
-    "id" : "keycard2",
-
-    "description" : "A key card that will give you access to all of the second buildings first floor.",
-
-    "name" : "A keycard for the second building",
-
-    "mass" : 0,
-
-    "damage" : 0
-    }
-items_elevator_code = {
-    "id" : "code",
-
-    "description" : "A elevator code, looks like you need this to use the elevator.",
-
-    "name" : "the elevators code",
-
-    "mass" : 0,
-
-    "damage" : 0,
-    }
-items_ammunition = {
-    "id" : "ammo",
-
-    "description" : "Bullets that will fit a pistol.",
-
-    "name" : "4 rounds of 9mm bullets",
-
-    "mass" : 0,
-
-    "damage" : 0
-    }
+##items_b2_keycard = {
+##    "id" : "keycard2",
+##
+##    "description" : "A key card that will give you access to all of the second buildings first floor.",
+##
+##    "name" : "A keycard for the second building",
+##
+##    "mass" : 0,
+##
+##    "damage" : 0
+##    }
+##items_ammunition = {
+##    "id" : "ammo",
+##
+##    "description" : "Bullets that will fit a pistol.",
+##
+##    "name" : "4 rounds of 9mm bullets",
+##
+##    "mass" : 0,
+##
+##    "damage" : 0
+##    }
 items_rope = {
     "id" : "rope",
 
@@ -154,28 +132,28 @@ items_rope = {
 
     "damage" : 1,
     }
-items_visitors_pass = {
-    "id" : "pass",
-
-    "description" : "A visitors pass that may help you get past reception.",
-
-    "name" : "a visitors pass",
-
-    "mass" : 0,
-
-    "damage" : 0
-    }
-items_hair_pin = {
-    "id" : "pin",
-
-    "description" : "a hair pin that if you are smart enough you make be able to use to open the cell door",
-
-    "name" : "a hair pin",
-
-    "mass" : 0,
-
-    "damage" : 0
-    }
+##items_visitors_pass = {
+##    "id" : "pass",
+##
+##    "description" : "A visitors pass that may help you get past reception.",
+##
+##    "name" : "a visitors pass",
+##
+##    "mass" : 0,
+##
+##    "damage" : 0
+##    }
+##items_hair_pin = {
+##    "id" : "pin",
+##
+##    "description" : "a hair pin that if you are smart enough you make be able to use to open the cell door",
+##
+##    "name" : "a hair pin",
+##
+##    "mass" : 0,
+##
+##    "damage" : 0
+##    }
 items_serum_207 = {
     "id" : "serum",
 

@@ -15,8 +15,6 @@ you will find the security room. The cell doors are facing north.""",
 
     "exits": {"north":"Securityroom1"},
 
-    "furniture": {"bed":[items_hair_pin]},
-
     "items":[],
 
     "enemies":[],
@@ -36,8 +34,6 @@ to the west of the security room.""",
 
     "exits": {"south": "Cell1", "west": "Stairsone1"},
 
-    "furniture": {"desk": [items_b1_keycard]},
-
     "items":[items_security_baton],
 
     "enemies":[],
@@ -56,8 +52,6 @@ This seems to be the only way to get to the floor above.
 Go up to enter the ground floor or go east to enter the security room again. """,
 
     "exits": {"up":"Stairstwo1", "east": "Securityroom1"},
-
-    "furniture":[],
 
     "items":[],
 
@@ -79,8 +73,6 @@ you to the first floor. To enter the reception room go east """,
 
     "exits": {"up":"Stairsthree1", "down": "Stairsone1" , "east": "Reception1"},
 
-    "furniture":[],
-
     "items":[],
 
     "enemies": [],
@@ -100,9 +92,7 @@ staircase go west.""",
 
     "exits": {"north": "Building1", "west":"Stairstwo1"},
 
-    "furniture":{}, 
-
-    "items": [items_strength_book, items_intelligence_book, items_agility_book],
+    "items": [items_strength_book],
 
     "enemies": [],
 
@@ -120,8 +110,6 @@ Going down will bring you back to the ground floor.
 Going up will bring you to the roof. To enter the lobby go east.""",
 
     "exits": {"up": "Roof1", "down": "Stairstwo1", "east": "Lobby1"},
-
-    "furniture":[],
 
     "items":[],
 
@@ -141,8 +129,6 @@ To get back to the staircase go west.""",
 
     "exits": {"west":"Stairsthree1", "south": "Control1"},
 
-    "furniture": {"sofa":[]},
-
     "items":[],
 
     "enemies": [],
@@ -160,8 +146,6 @@ This is the control room. After you leave the control room you can
 exit the building from reception. To go back to the lobby go north.""",
 
     "exits": {"north": "Lobby1"},
-
-    "furniture":[],
 
     "items":[],
 
@@ -183,8 +167,6 @@ You are on the roof. Its too high to jump down. But there may be another way
 to get down. To go back to the first floor go down.""",
 
     "exits": {"down": "Stairsthree1", "north": "Building1"},
-
-    "furniture":[],
 
     "items":[items_rope],
 
@@ -275,7 +257,7 @@ leads to the toys store across the road.""",
     
     "exits": {"east": "Toys"},
 
-    "items": [items_ammunition],
+    "items": [items_strength_book],
 
     "enemies": [],
 
@@ -295,7 +277,7 @@ improsened earlier""",
 
     "exits": {"north": "Building1"},
 
-    "items": [items_strength_book],
+    "items": [items_stun_gun],
 
     "enemies": [],
 
@@ -354,7 +336,7 @@ to the church.""",
 
     "exits": {"south": "Church", "east": "Station2"},
 
-    "items": [],
+    "items": [items_baseball_bat],
 
     "enemies": [],
 
@@ -449,7 +431,7 @@ card next to it. You wonder what the card is used for. The reception is to the e
 
     "exits": {"east": "Reception"},
 
-    "items": [items_visitors_pass],
+    "items": [], # items_visitors_pass
 
     "enemies" : [],
 
@@ -465,7 +447,7 @@ is to the north.""",
 
     "exits": {"north": "Reception"},
 
-    "items": [items_ammunition, items_pistol, items_intelligence_book], # The ammunition and a pistol would be dropped when the player kills the enemy.
+    "items": [items_pistol, items_intelligence_book], # The ammunition and a pistol would be dropped when the player kills the enemy.
  
     "enemies" : [enemy_guard_toilet],
 
@@ -496,7 +478,7 @@ You see there are rooms to your south and west.""",
 
     "exits": {"south": "Room 2", "east": "Stairs 1", "west": "Room 1", "down": "Stairs 0"},
 
-    "items": [items_b2_keycard], # Guard drops this item
+    "items": [], # Guard drops this item (items_b2_keycard)
 
     "enemies" : [enemy_guard_floor1],
 
@@ -511,7 +493,7 @@ to the east.""",
 
     "exits": {"east": "Corridor"},
 
-    "items": [items_garrotte_wire, items_pistol, items_ammunition],
+    "items": [items_pistol],
 
     "enemies" : [],
 
@@ -556,7 +538,7 @@ room_main = {
 If you go south you can go to the conference, north to the security room or west to the
 elevator""",
 
-    "exits": {"down": "Stairs 1", "south": "Conference Room", "east": "Stairs 2", "west": "Elevator", "north": "Security Room"},
+    "exits": {"down": "Stairs 1", "south": "Conference Room", "west": "Elevator", "north": "Security Room"},
 
     "items": [],
  
@@ -572,7 +554,7 @@ room_security = {
 
     "exits": {"east": "Main Room"},
 
-    "items": [items_pistol, items_ammunition], # They will drop if the kill the enemy.
+    "items": [items_pistol], # They will drop if the kill the enemy.
 
     "enemies" : [enemy_guard_security],
 
@@ -582,12 +564,11 @@ room_conference = {
     "name": "Conference Room",
 
     "description":
-    """You walk into the Conference room. You see a book on the table. The Main room is
-to the north.""",
+    """You walk into the Conference room. You see a book on the table. You open the book and you find a pin code for the elevator '179535'""",
 
     "exits": {"north": "Main Room"},
 
-    "items": [items_elevator_code],
+    "items": [],
 
     "enemies" : [],
 
