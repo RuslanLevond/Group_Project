@@ -104,7 +104,7 @@ items_b1_keycard = {
 
     "description" : "A key card that will give you access to control room.",
 
-    "name" : "A keycard for control room",
+    "name" : "keycard for control room",
 
     "mass" : 0,
 

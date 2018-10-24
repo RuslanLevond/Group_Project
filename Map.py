@@ -214,9 +214,7 @@ place_abandoned_building = {
 
     "description":
     """You have entered the abandoned building. There seems to be nothing
-useful when you first entered. After researching around,
-you see an intelligence skillbook and a knife on the floor.
-You can either pick up the items or leave the building from the south side.""",
+useful when you first entered. You can either search for items or leave the building from the south side.""",
 
     "exits": {"south": "Pharmacy"},
 
@@ -377,7 +375,7 @@ go north back to the city centre or you can continue south and go in front of th
 
     "enemies": [],
 
-    "people": []
+    "people": [people_priest]
 ##int skillbook
 }
 
@@ -455,7 +453,7 @@ is to the north.""",
     "people": []
 }
 room_stairs_0 = {
-    "name": "Stairs 0",
+    "name": "Stairs Ground Floor",
 
     "description":
     """You are standing on the stairs, you see a book on the floor. Going up the
@@ -486,10 +484,10 @@ You see there are rooms to your south and west.""",
     "people": []
 }
 room_room1 = {
-    "name": "Room 1",
+    "name": "Storage room",
 
     "description":
-    """You are standing in Room 1, you see a pistol and a Garotte wire. The corridor is
+    """You are standing in the storage room, you see a pistol and a Garotte wire. The corridor is
 to the east.""",
 
     "exits": {"east": "Corridor"},
@@ -501,10 +499,10 @@ to the east.""",
     "people": []
 }
 room_room2 = {
-    "name": "Room 2",
+    "name": "Kitchen",
 
     "description":
-    """You are standing in Room 1, you see a box on the floor and wonder what is inside.
+    """You are standing in the kitchen, you see a box on the floor and wonder what is inside.
 To your north is the corrirdor.""",
 
     "exits": {"north": "Corridor"},
@@ -516,7 +514,7 @@ To your north is the corrirdor.""",
     "people": []
 }
 room_stairs_1 = {
-    "name": "Stairs 1",
+    "name": "Stairs 1st Floor",
 
     "description":
     """You are standing on the stairson the 1st Floor. Going up the
@@ -532,7 +530,7 @@ stairs will take you to the 2nd Floor. """,
 }
 
 room_main = {
-    "name": "Main Room",
+    "name": "Secretary office",
 
     "description":
     """You walk in from stairs and see a Guard sitting on a sofa. He hasn't seen you.

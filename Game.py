@@ -132,13 +132,9 @@ def execute_go(direction, stamina):
     #This function calls is_valid_exit function which would check if the exit is valid and then if the exit is valid, it would update the current room.
     global current_room
     global security_room_pass
-    check = 0
     #Lobby check
     if current_room == rooms["Lobby1"]:
-        security_room_pass = True
-    if current_room == rooms["Roof1"]:
-        check = 1
-        
+        security_room_pass = True  
     
     exits = current_room["exits"]
     if is_valid_exit(exits, direction) == True:
@@ -401,6 +397,7 @@ def inventory_menu(exits, room_items, inv_items, room_people):
     normalised_user_input = normalise_input(user_input)
 
     return normalised_user_input
+
 
 def search_menu(exits, room_items, inv_items, room_people):
     user_input = input("> ")
